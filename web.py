@@ -2,11 +2,21 @@
 # -*- coding: utf-8 -*-
 # Authors:      Luis Carles Durá, Jaime García Velázquez, Manuel Martín Malagón, Rafael Rodríguez Sánchez
 # Created:      2019/04/10
-# Last update:  2019/04/10
+# Last update:  2019/04/11
 
+
+import os
 
 from flask import Flask, flash, redirect, render_template, request, session, abort, send_from_directory
-import os
+from connectors.mysql_connector import MySQLConnector
+from data.data_loader import DataLoader
+
+
+try:
+    data = DataLoader()
+    mysql_db = MySQLConnection(data.host, data.user, data.password, data.port, data.database)
+except:
+    exit()
 
 app = Flask(__name__)
 
@@ -47,7 +57,7 @@ def waiter_dish():
 @app.route("/waiter/products/menu/list.html")
 def waiter_menu():
     return "!", 200
-    
+
 @app.route("/customer")
 def customer():
     return redirect("/customer/home.html")
