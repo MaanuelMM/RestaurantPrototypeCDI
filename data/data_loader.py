@@ -19,4 +19,4 @@ class DataLoader:
             self.database = data["database"]
         except:
             print("Error al leer el archivo de configuración.")
-            raise Exception()
+            raise

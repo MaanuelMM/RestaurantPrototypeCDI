@@ -14,7 +14,7 @@ from data.data_loader import DataLoader
 
 try:
     data = DataLoader()
-    mysql_db = MySQLConnection(data.host, data.user, data.password, data.port, data.database)
+    mysql_db = MySQLConnector(data.host, data.user, data.password, data.port, data.database)
 except:
     exit()
 

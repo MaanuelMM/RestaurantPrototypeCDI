@@ -18,7 +18,7 @@ class MySQLConnector:
                 port=port,
                 database=database
             )
-            self.mycursor = mydb.cursor()
+            self.mycursor = self.mydb.cursor()
         except:
             print("Error al realizar la conexión con la base de datos.")
-            raise Exception()
+            raise
