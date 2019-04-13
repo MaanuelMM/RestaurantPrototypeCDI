@@ -2,33 +2,30 @@
 # -*- coding: utf-8 -*-
 # Authors:      Luis Carles Durá, Jaime García Velázquez, Manuel Martín Malagón, Rafael Rodríguez Sánchez
 # Created:      2019/04/10
-# Last update:  2019/04/11
+# Last update:  2019/04/13
 
 
 import os
 
 from flask import Flask, flash, redirect, render_template, request, session, abort, send_from_directory
-from connectors.mysql_connector import MySQLConnector
-from data.data_loader import DataLoader
-
+from loaders.data_loader import DataLoader
 
 try:
     data = DataLoader()
-    mysql_db = MySQLConnector(data.host, data.user, data.password, data.port, data.database)
 except:
     exit()
 
 app = Flask(__name__)
 
 
-@app.route("/")
-def base():
-    return redirect("/index.html")
-
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
-                          'favicon.ico',mimetype='image/vnd.microsoft.icon')
+                               'favicon.ico',mimetype='image/vnd.microsoft.icon')
+
+@app.route("/")
+def root():
+    return redirect("/index.html")
 
 @app.route("/index.html")
 def index():
@@ -39,7 +36,7 @@ def about():
     return "!", 200
 
 @app.route("/waiter")
-def waiter():
+def waiter_root():
     return redirect("/waiter/home.html")
 
 @app.route("/waiter/home.html")
@@ -59,7 +56,7 @@ def waiter_menu():
     return "!", 200
 
 @app.route("/customer")
-def customer():
+def customer_root():
     return redirect("/customer/home.html")
 
 @app.route("/customer/home.html")
@@ -68,7 +65,9 @@ def customer_home():
 
 @app.route("/products/list.html")
 def products_list():
-    return render_template("/products/list.html")
+    return render_template("/products/list.html", categories=data.categories,
+                           products=data.products)
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)

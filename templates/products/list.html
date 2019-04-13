@@ -137,54 +137,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav nav-pills nav-justified ml-auto" id="categoryFood" role="tablist" style="margin:16px">
+                    {% for category_item, category in categories.items() %}
                     <li class="nav-item" style="margin-bottom:8px">
-                        <a class="nav-link active" id="drinks-tab" data-toggle="tab" href="#drinks" role="tab"
-                            aria-controls="drinks" aria-selected="true">
-                            <h5>Bebidas</h5>
+                        <a class="nav-link{% if category.active %} active{% endif %}" id="{{ category_item }}-tab"
+                            data-toggle="tab" href="#{{ category_item }}" role="tab" aria-controls="{{ category_item }}"
+                            aria-selected="true">
+                            <h5>{{ category.name }}</h5>
                         </a>
                     </li>
-                    <li class="nav-item" style="margin-bottom:8px">
-                        <a class="nav-link" id="starters-tab" data-toggle="tab" href="#starters" role="tab"
-                            aria-controls="starters" aria-selected="false">
-                            <h5>Entrantes</h5>
-                        </a>
-                    </li>
-                    <li class="nav-item" style="margin-bottom:8px">
-                        <a class="nav-link" id="meats-tab" data-toggle="tab" href="#meats" role="tab"
-                            aria-controls="meats" aria-selected="false">
-                            <h5>Carnes</h5>
-                        </a>
-                    </li>
-                    <li class="nav-item" style="margin-bottom:8px">
-                        <a class="nav-link" id="fishes-tab" data-toggle="tab" href="#fishes" role="tab"
-                            aria-controls="fishes" aria-selected="false">
-                            <h5>Pescados</h5>
-                        </a>
-                    </li>
-                    <li class="nav-item" style="margin-bottom:8px">
-                        <a class="nav-link" id="vegetables-tab" data-toggle="tab" href="#vegetables" role="tab"
-                            aria-controls="vegetables" aria-selected="false">
-                            <h5>Vegetales</h5>
-                        </a>
-                    </li>
-                    <li class="nav-item" style="margin-bottom:8px">
-                        <a class="nav-link" id="vegan-tab" data-toggle="tab" href="#vegan" role="tab"
-                            aria-controls="vegan" aria-selected="false">
-                            <h5>Vegano</h5>
-                        </a>
-                    </li>
-                    <li class="nav-item" style="margin-bottom:8px">
-                        <a class="nav-link" id="desserts-tab" data-toggle="tab" href="#desserts" role="tab"
-                            aria-controls="desserts" aria-selected="false">
-                            <h5>Postres</h5>
-                        </a>
-                    </li>
-                    <li class="nav-item" style="margin-bottom:8px">
-                        <a class="nav-link" id="coffees-tab" data-toggle="tab" href="#coffees" role="tab"
-                            aria-controls="coffees" aria-selected="false">
-                            <h5>Cafés</h5>
-                        </a>
-                    </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -192,153 +153,42 @@
 
     <div class="container-fluid">
         <div class="tab-content" id="categoryFoodContent" style="margin:36px">
-            <div class="tab-pane fade show active" id="drinks" role="tabpanel" aria-labelledby="drinks-tab">
-                Contenido de bebidas</div>
-            <div class="tab-pane fade" id="starters" role="tabpanel" aria-labelledby="starters-tab">
+            {% for category_item, category in categories.items() %}
+            <div class="tab-pane fade{% if category.active %} show active{% endif %}" id="{{ category_item }}"
+                role="tabpanel" aria-labelledby="{{ category_item }}-tab">
                 <div class="row justify-content-center">
-                    <div class="card" style="width:400px;margin:24px">
-                        <img class="card-img-top"
-                            src="https://fostershollywood.es/sites/default/files/images/product/bacon-cheese-fries.png"
-                            alt="BACON & CHEESE FRIES" style="cursor: pointer;" onclick="onClick(this)">
+                    {% for product_id, product in products.items() %}
+                    {% if product.category == category_item %}
+                    <div class="card" style="width:300px;margin:8px">
+                        <img class="card-img-top" src="{{ product.pathImage }}" alt="{{ product.name }}"
+                            style="cursor: pointer;" onclick="onClick(this)">
                         <div class="d-flex flex-column card-body bg-light text-dark">
-                            <h4 class="card-title"><b>BACON & CHEESE FRIES</b></h4>
-                            <p class="card-text">Patatas fritas, mix de quesos y bacon crispy con salsa ranchera.
-                            </p>
-                            <a href="#" class="mt-auto btn btn-primary">Añadir</a>
+                            <h4 class="card-title text-center"><b>{{ product.name }}</b></h4>
+                            <p class="card-text text-center">{{ product.description }}</p>
+                            {% if product.available %}
+                            <a href="#" class="mt-auto btn btn-primary">{{ "%.2f" | format(product.price) }}€ -
+                                Añadir</a>
+                            {% else %}
+                            <a class="mt-auto btn btn-outline-primary disabled"
+                                disabled>{{ "%.2f" | format(product.price) }}€ - No disponible</a>
+                            {% endif %}
                         </div>
                     </div>
-                    <div class="card" style="width:400px;margin:24px">
-                        <img class="card-img-top"
-                            src="https://fostershollywood.es/sites/default/files/images/product/pulled-smoke-cheese-fries.png"
-                            alt="PULLED CHEESE FRIES" style="cursor: pointer;" onclick="onClick(this)">
-                        <div class="d-flex flex-column card-body bg-light text-dark">
-                            <h4 class="card-title"><b>PULLED CHEESE FRIES</b></h4>
-                            <p class="card-text">Carne de cerdo deshilachada con salsa barbacoa, patatas fritas
-                                gratinadas
-                                con queso cheddar ahumado, cebolla frita y salsa mayo smoked bacon.</p>
-                            <a href="#" class="mt-auto btn btn-primary">Añadir</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width:400px;margin:24px">
-                        <img class="card-img-top"
-                            src="https://fostershollywood.es/sites/default/files/images/product/nachos-san-fernando.png"
-                            alt="NACHOS SAN FERNANDO" style="cursor: pointer;" onclick="onClick(this)">
-                        <div class="d-flex flex-column card-body bg-light text-dark">
-                            <h4 class="card-title"><b>NACHOS SAN FERNANDO</b></h4>
-                            <p class="card-text">Con quesos fundidos, chili con carne, crema agria, jalapeños y pico
-                                de
-                                gallo.</p>
-                            <a href="#" class="mt-auto btn btn-primary">Añadir</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width:400px;margin:24px">
-                        <img class="card-img-top"
-                            src="https://fostershollywood.es/sites/default/files/images/product/nachos-san-fernando.png"
-                            alt="GUACAMOLE HECHO EN TU MESA" style="cursor: pointer;" onclick="onClick(this)">
-                        <div class="d-flex flex-column card-body bg-light text-dark">
-                            <h4 class="card-title"><b>GUACAMOLE HECHO EN TU MESA</b></h4>
-                            <p class="card-text">El guacamole con los ingredientes más frescos hecho en tu mesa:
-                                aguacate,
-                                cebolla, jalapeño, cilantro, sal, lima y tabasco.</p>
-                            <a href="#" class="mt-auto btn btn-primary">Añadir</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width:400px;margin:24px">
-                        <img class="card-img-top"
-                            src="https://fostershollywood.es/sites/default/files/images/product/bbq-ranch-chicken-flatbread.png"
-                            alt="BBQ & RANCH CHICKEN FLATBREAD" style="cursor: pointer;" onclick="onClick(this)">
-                        <div class="d-flex flex-column card-body bg-light text-dark">
-                            <h4 class="card-title"><b>BBQ & RANCH CHICKEN FLATBREAD</b></h4>
-                            <p class="card-text">Fina masa cubierta de mix de quesos, salsa barbacoa, pechuga
-                                marinada,
-                                bacon crispy, salsa ranchera y perejil.</p>
-                            <a href="#" class="mt-auto btn btn-primary">Añadir</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width:400px;margin:24px">
-                        <img class="card-img-top"
-                            src="https://fostershollywood.es/sites/default/files/images/product/hollywood-combo.png"
-                            alt="HOLLYWOOD COMBO" style="cursor: pointer;" onclick="onClick(this)">
-                        <div class="d-flex flex-column card-body bg-light text-dark">
-                            <h4 class="card-title"><b>HOLLYWOOD COMBO</b></h4>
-                            <p class="card-text">Fingers de queso, aros de cebolla, delicias de jalapeños y Chicken
-                                Pops
-                                (muslitos de alita de pollo), con salsa ranchera y barbacoa, para dipear.</p>
-                            <a href="#" class="mt-auto btn btn-primary">Añadir</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width:400px;margin:24px">
-                        <img class="card-img-top"
-                            src="https://fostershollywood.es/sites/default/files/images/product/mac-cheese.png"
-                            alt="MAC & CHEESE" style="cursor: pointer;" onclick="onClick(this)">
-                        <div class="d-flex flex-column card-body bg-light text-dark">
-                            <h4 class="card-title"><b>MAC & CHEESE</b></h4>
-                            <p class="card-text">Macarrones con crema de queso empanados con cereal de maíz sobre una
-                                salsa de tomate y albahaca, y queso Parmigiano Reggiano rallado.</p>
-                            <a href="#" class="mt-auto btn btn-primary">Añadir</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width:400px;margin:24px">
-                        <img class="card-img-top"
-                            src="https://fostershollywood.es/sites/default/files/images/product/fosters-chicken-pops.png"
-                            alt="CHICKEN POPS" style="cursor: pointer;" onclick="onClick(this)">
-                        <div class="d-flex flex-column card-body bg-light text-dark">
-                            <h4 class="card-title"><b>CHICKEN POPS</b></h4>
-                            <p class="card-text">Muslitos de alita de pollo marinados en salsa Búfalo picante,
-                                acompañados con apio fresco y salsa de queso azul para dipear.</p>
-                            <a href="#" class="mt-auto btn btn-primary">Añadir</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width:400px;margin:24px">
-                        <img class="card-img-top"
-                            src="https://fostershollywood.es/sites/default/files/images/product/choice-chicken-fingers.png"
-                            alt="CHICKEN FINGERS" style="cursor: pointer;" onclick="onClick(this)">
-                        <div class="d-flex flex-column card-body bg-light text-dark">
-                            <h4 class="card-title"><b>CHICKEN FINGERS</b></h4>
-                            <p class="card-text">Pechuga de pollo empanada. Servido con miel mostaza.</p>
-                            <a href="#" class="mt-auto btn btn-primary">Añadir</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width:400px;margin:24px">
-                        <img class="card-img-top"
-                            src="https://fostershollywood.es/sites/default/files/images/product/finger-de-queso-grand-central.png"
-                            alt="FINGERS DE QUESO" style="cursor: pointer;" onclick="onClick(this)">
-                        <div class="d-flex flex-column card-body bg-light text-dark">
-                            <h4 class="card-title"><b>FINGERS DE QUESO</b></h4>
-                            <p class="card-text">Palitos de queso Gouda empanados y servidos con salsa barbacoa.</p>
-                            <a href="#" class="mt-auto btn btn-primary">Añadir</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width:400px;margin:24px">
-                        <img class="card-img-top"
-                            src="https://fostershollywood.es/sites/default/files/images/product/aros-de-cebolla.png"
-                            alt="AROS DE CEBOLLA" style="cursor: pointer;" onclick="onClick(this)">
-                        <div class="d-flex flex-column card-body bg-light text-dark">
-                            <h4 class="card-title"><b>AROS DE CEBOLLA</b></h4>
-                            <p class="card-text">Nuestra auténtica receta americana.</p>
-                            <a href="#" class="mt-auto btn btn-primary">Añadir</a>
-                        </div>
-                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
-            <div class="tab-pane fade" id="meats" role="tabpanel" aria-labelledby="meats-tab">Contenido de carnes
-            </div>
-            <div class="tab-pane fade" id="fishes" role="tabpanel" aria-labelledby="fishes-tab">Contenido de
-                pescados
-            </div>
-            <div class="tab-pane fade" id="vegetables" role="tabpanel" aria-labelledby="vegetables-tab">Contenido de
-                vegetales</div>
-            <div class="tab-pane fade" id="vegan" role="tabpanel" aria-labelledby="vegan-tab">Contenido vegano</div>
-            <div class="tab-pane fade" id="desserts" role="tabpanel" aria-labelledby="desserts-tab">Contenido de
-                postres
-            </div>
-            <div class="tab-pane fade" id="coffees" role="tabpanel" aria-labelledby="coffees-tab">Contenido de cafés
-            </div>
+            {% endfor %}
         </div>
     </div>
     </div>
 
-    <div id="myModal" class="modal" onclick="this.style.display='none'">
+    <footer>
+        <div class="footer-copyright text-center py-3">© 2019 Copyright - Equipo de desarrollo Restaurante CDI
+        </div>
+    </footer>
+
+    <div id="imgModal" class="modal" onclick="this.style.display='none'">
         <span class="close">&times;</span>
         <img class="modal-content" id="img01">
         <div id="caption"></div>
@@ -346,7 +196,7 @@
 
     <script>
         // Get the modal
-        var modal = document.getElementById('myModal');
+        var modal = document.getElementById('imgModal');
 
         // Get the image and insert it inside the modal - use its "alt" text as a caption
         var modalImg = document.getElementById("img01");

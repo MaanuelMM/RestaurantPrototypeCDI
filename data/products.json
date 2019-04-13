@@ -1,0 +1,146 @@
+{
+    "1": {
+        "name": "BACON & CHEESE FRIES",
+        "description": "Patatas fritas, mix de quesos y bacon crispy con salsa ranchera.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/bacon-cheese-fries.png",
+        "price": 4.90,
+        "available": true,
+        "category": "starters"
+    },
+    "2": {
+        "name": "PULLED CHEESE FRIES",
+        "description": "Carne de cerdo deshilachada con salsa barbacoa, patatas fritas gratinadas con queso cheddar ahumado, cebolla frita y salsa mayo smoked bacon.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/pulled-smoke-cheese-fries.png",
+        "price": 5.20,
+        "available": true,
+        "category": "starters"
+    },
+    "3": {
+        "name": "GUACAMOLE HECHO EN TU MESA",
+        "description": "El guacamole con los ingredientes más frescos hecho en tu mesa: aguacate, cebolla, jalapeño, cilantro, sal, lima y tabasco.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/guacamole-hecho-en-tu-mesa.png",
+        "price": 4.50,
+        "available": true,
+        "category": "starters"
+    },
+    "4": {
+        "name": "NACHOS SAN FERNANDO",
+        "description": "Con quesos fundidos, chili con carne, crema agria, jalapeños y pico de gallo.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/nachos-san-fernando.png",
+        "price": 3.90,
+        "available": true,
+        "category": "starters"
+    },
+    "5": {
+        "name": "BBQ & RANCH CHICKEN FLATBREAD",
+        "description": "Fina masa cubierta de mix de quesos, salsa barbacoa, pechuga marinada, bacon crispy, salsa ranchera y perejil.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/bbq-ranch-chicken-flatbread.png",
+        "price": 7.50,
+        "available": true,
+        "category": "starters"
+    },
+    "6": {
+        "name": "HOLLYWOOD COMBO",
+        "description": "Fingers de queso, aros de cebolla, delicias de jalapeños y Chicken Pops (muslitos de alita de pollo), con salsa ranchera y barbacoa, para dipear.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/hollywood-combo.png",
+        "price": 8.20,
+        "available": true,
+        "category": "starters"
+    },
+    "7": {
+        "name": "MAC & CHEESE",
+        "description": "Macarrones con crema de queso empanados con cereal de maíz sobre una salsa de tomate y albahaca, y queso Parmigiano Reggiano rallado.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/mac-cheese.png",
+        "price": 3.90,
+        "available": true,
+        "category": "starters"
+    },
+    "8": {
+        "name": "CHICKEN POPS",
+        "description": "Muslitos de alita de pollo marinados en salsa Búfalo picante, acompañados con apio fresco y salsa de queso azul para dipear.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/fosters-chicken-pops.png",
+        "price": 4.50,
+        "available": true,
+        "category": "starters"
+    },
+    "9": {
+        "name": "CHICKEN FINGERS",
+        "description": "Pechuga de pollo empanada. Servido con miel mostaza.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/choice-chicken-fingers.png",
+        "price": 4.20,
+        "available": false,
+        "category": "starters"
+    },
+    "10": {
+        "name": "FINGERS DE QUESO",
+        "description": "Palitos de queso Gouda empanados y servidos con salsa barbacoa.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/finger-de-queso-grand-central.png",
+        "price": 3.90,
+        "available": true,
+        "category": "starters"
+    },
+    "11": {
+        "name": "AROS DE CEBOLLA",
+        "description": "Nuestra auténtica receta americana.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/aros-de-cebolla.png",
+        "price": 4.10,
+        "available": true,
+        "category": "starters"
+    },
+    "12": {
+        "name": "AGUA Font Vella®",
+        "description": "De lo más profundo de la tierra emerge un agua con propiedades únicas: Font Vella. 100% equilibrada, sin impurezas y totalmente segura.",
+        "pathImage": "https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/201712/13/00118630003624____1__600x600.jpg",
+        "price": 1.80,
+        "available": true,
+        "category": "drinks"
+    },
+    "13": {
+        "name": "Coca-Cola® SABOR ORIGINAL",
+        "description": "La de siempre, original y deliciosa, la que refresca a millones de personas en todo el mundo.",
+        "pathImage": "https://www.cocacola.es/content/dam/GO/CokeZone/Spain/Coca-Cola-Full-Red-vidrio-Sabor-Original.jpg",
+        "price": 2.10,
+        "available": true,
+        "category": "drinks"
+    },
+    "14": {
+        "name": "Coca-Cola® ZERO AZÚCAR",
+        "description": "Seguramente, alguna vez has soñado con una bebida de delicioso sabor, sin tener que preocuparte por el contenido en azúcar o calorías.",
+        "pathImage": "https://www.cocacola.es/content/dam/GO/CokeZone/Spain/Coca-Cola-Full-vidrio-Red-Zero.jpg",
+        "price": 2.20,
+        "available": true,
+        "category": "drinks"
+    },
+    "15": {
+        "name": "Coca-Cola® SABOR LIGHT",
+        "description": "Una variante ligera de Coca-Cola, sin azúcar, sin calorías. Con un sabor único y todo su gran poder refrescante.",
+        "pathImage": "https://www.cocacola.es/content/dam/GO/CokeZone/Spain/Coca-Cola-Full-Red-vidrio-light.jpg",
+        "price": 2.20,
+        "available": false,
+        "category": "drinks"
+    },
+    "16": {
+        "name": "Coca-Cola® ZERO AZÚCAR Y ZERO CAFEÍNA",
+        "description": "Sin azúcar, sin calorías y sin cafeína, que te permite disfrutar de un gran sabor y no te quita el sueño.",
+        "pathImage": "https://www.cocacola.es/content/dam/GO/CokeZone/Spain/Coca-Cola-Full-Red-vidrio-Zero-Zero.jpg",
+        "price": 2.50,
+        "available": true,
+        "category": "drinks"
+    },
+    "17": {
+        "name": "Fanta® NARANJA",
+        "description": "Cuando abres una Fanta Naranja sube la diversión, sus burbujas tienen ese efecto, ¡comprobado!",
+        "pathImage": "/static/products/drinks/fanta-naranja.png",
+        "price": 2.50,
+        "available": true,
+        "category": "drinks"
+    },
+    "18": {
+        "name": "Fanta® LIMÓN",
+        "description": "Si eres de Fanta Limón, eres ácido y molón, no hay más… Bueno sí… mucha diversión.",
+        "pathImage": "/static/products/drinks/fanta-limon.png",
+        "price": 2.50,
+        "available": true,
+        "category": "drinks"
+    }
+}

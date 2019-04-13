@@ -1,0 +1,30 @@
+{
+    "drinks": {
+        "name": "Bebidas",
+        "active": true
+    },
+    "starters": {
+        "name": "Entrantes",
+        "active": false
+    },
+    "meats": {
+        "name": "Carnes",
+        "active": false
+    },
+    "vegetables": {
+        "name": "Vegetales",
+        "active": false
+    },
+    "vegan": {
+        "name": "Vegano",
+        "active": false
+    },
+    "desserts": {
+        "name": "Postres",
+        "active": false
+    },
+    "coffees": {
+        "name": "Cafés",
+        "active": false
+    }
+}
