@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Authors:      Luis Carles Durá, Jaime García Velázquez, Manuel Martín Malagón, Rafael Rodríguez Sánchez
 # Created:      2019/04/10
-# Last update:  2019/04/13
+# Last update:  2019/04/14
 
 
 import os
@@ -21,7 +21,7 @@ app = Flask(__name__)
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.ico',mimetype='image/vnd.microsoft.icon')
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route("/")
 def root():

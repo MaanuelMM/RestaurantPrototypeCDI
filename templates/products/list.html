@@ -129,7 +129,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
         <div class="container-fluid">
             <a class="navbar-brand">
-                <img src="/favicon.ico" alt="logo" style="width:56px">
+                <img src="/static/favicon.svg" alt="logo" style="width:64px">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -138,7 +138,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav nav-pills nav-justified ml-auto" id="categoryFood" role="tablist" style="margin:16px">
                     {% for category_item, category in categories.items() %}
-                    <li class="nav-item" style="margin-bottom:8px">
+                    <li class="m-auto nav-item" style="margin-bottom:8px">
                         <a class="nav-link{% if category.active %} active{% endif %}" id="{{ category_item }}-tab"
                             data-toggle="tab" href="#{{ category_item }}" role="tab" aria-controls="{{ category_item }}"
                             aria-selected="true">
@@ -161,17 +161,19 @@
                     {% if product.category == category_item %}
                     <div class="card" style="width:300px;margin:8px">
                         <img class="card-img-top" src="{{ product.pathImage }}" alt="{{ product.name }}"
-                            style="cursor: pointer;" onclick="onClick(this)">
+                            style="cursor:pointer" onclick="onClick(this)">
                         <div class="d-flex flex-column card-body bg-light text-dark">
                             <h4 class="card-title text-center"><b>{{ product.name }}</b></h4>
-                            <p class="card-text text-center">{{ product.description }}</p>
-                            {% if product.available %}
-                            <a href="#" class="mt-auto btn btn-primary">{{ "%.2f" | format(product.price) }}€ -
-                                Añadir</a>
-                            {% else %}
-                            <a class="mt-auto btn btn-outline-primary disabled"
-                                disabled>{{ "%.2f" | format(product.price) }}€ - No disponible</a>
-                            {% endif %}
+                            <p class="mt-auto card-text text-center">{{ product.description }}</p>
+                            <div class="mt-auto d-flex flex-column">
+                                <h2 class="mt-auto mb-3 text-center"><b>
+                                        {{ "%.2f" | format(product.price) }} €</span></b></h2>
+                                {% if product.available %}
+                                <a href="#" class="mt-auto btn btn-primary">Añadir</a>
+                                {% else %}
+                                <a class="mt-auto btn btn-outline-primary disabled" disabled>No disponible</a>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                     {% endif %}

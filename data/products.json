@@ -142,5 +142,301 @@
         "price": 2.50,
         "available": true,
         "category": "drinks"
+    },
+    "19": {
+        "name": "SANTA MÓNICA",
+        "description": "Pollo empanado en trozos, bacon crujiente, mezcla de quesos rallados y tomate sobre una mezcla de lechugas.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/ensalada-santa-monica.png",
+        "price": 8.20,
+        "available": true,
+        "category": "salads"
+    },
+    "20": {
+        "name": "CALIFORNIA SALAD",
+        "description": "Queso Feta, pollo a la parrilla con especias BBQ, dados de aguacate, arroz basmati, tomates cherry, nueces y maíz sobre una mezcla de lechugas aliñada con vinagreta Gingersoy y cilantro.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/california_salad_ok_ok_2015_0.png",
+        "price": 7.50,
+        "available": true,
+        "category": "salads"
+    },
+    "21": {
+        "name": "CAESAR SALAD",
+        "description": "Pechuga de pollo a la parrilla, lechuga romana, croutons, queso grana padano, aliñado con salsa parmesana.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/caesar_salad_ok_2015_0.png",
+        "price": 7.80,
+        "available": false,
+        "category": "salads"
+    },
+    "22": {
+        "name": "MEDITERRANEAN SALAD",
+        "description": "Paleta ibérica en tiras, queso de cabra, tomates cherry y pasas sobre mezcla de lechugas.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/FOSTERS_ENSALADAS_Mediterranean_0.png",
+        "price": 6.50,
+        "available": true,
+        "category": "salads"
+    },
+    "23": {
+        "name": "BEEF BONE",
+        "description": "Carne de vacuno cocinada lentamente y terminada a la parrilla con salsa BBQ, con cebolla crispy, tomate cherry y cilantro.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/beef-bone.png",
+        "price": 9.80,
+        "available": false,
+        "category": "meals"
+    },
+    "24": {
+        "name": "THE NEWYORKER 325 GRS",
+        "description": "Jugoso entrecotte sazonado y preparado en nuestra parrilla. Servido con nuestra deliciosa salsa Steakhouse.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/FOSTERS_CARNES_NewYorker_0.png",
+        "price": 12.80,
+        "available": true,
+        "category": "meals"
+    },
+    "25": {
+        "name": "FLANK STEAK 300 GRS",
+        "description": "Corte argentino, vacío de vacuno marinado en cerveza negra. Preparado a la parrilla con carbón vegetal y acompañado con salsa Steakhouse.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/fosters_carnes_flank_steak_optimizado.png",
+        "price": 11.00,
+        "available": true,
+        "category": "meals"
+    },
+    "26": {
+        "name": "SALISBURY STEAKS",
+        "description": "Carne de vacuno aderezada, salsa de champiñones, cebolla pochada y mezcla de quesos fundidos. Acompañado de ensalada de lechuga, tomate y jalapeños.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/FOSTERS_CARNES_Salisbury_Steaks_0.png",
+        "price": 10.50,
+        "available": true,
+        "category": "meals"
+    },
+    "27": {
+        "name": "NATIONAL STAR RIBS",
+        "description": "Costillas de cerdo ahumadas a la parrilla.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/national-ribs-de-cerdo.png",
+        "price": 11.50,
+        "available": false,
+        "category": "meals"
+    },
+    "28": {
+        "name": "SOUTHERN CHICKEN SANDWICH",
+        "description": "Contramuslos de pollo rebozados al estilo sureño con pan Pretzel, lechuga trocadero, tomate, queso Cheddar, bacon ahumado al haya, salsa de miel mostaza, pepinillo picado y mango.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/southern-chicken-sandwich-ok.png",
+        "price": 8.50,
+        "available": true,
+        "category": "sandwiches"
+    },
+    "29": {
+        "name": "CAESAR SANDWICH",
+        "description": "Pechuga de pollo a la parrilla, bacon crujiente, lechuga romana y salsa parmesana en pan con semillas y copos de avena.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/caesar-sandwich-ok.png",
+        "price": 7.90,
+        "available": true,
+        "category": "sandwiches"
+    },
+    "30": {
+        "name": "PULLED PORK SANDWICH",
+        "description": "Carne de cerdo deshilachada con salsa barbacoa, cheddar ahumado, lechuga romana aderezada con salsa yuzu y pepinillos con toques dulces y ácidos.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/pulled-pork-sandwich-new.png",
+        "price": 8.20,
+        "available": true,
+        "category": "sandwiches"
+    },
+    "31": {
+        "name": "BLACK LABEL BURGER",
+        "description": "Pan con sabor a trufa, queso cheddar y cebolla morada confitada al oporto. Acompañado de mayonesa con sabor a trufa, rúcula, lechuga trocadero, tomate, pepinillo pickle y patatas fritas con quedo parmigiano reggiano.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/black-label-burger.png",
+        "price": 11.00,
+        "available": false,
+        "category": "burgers"
+    },
+    "32": {
+        "name": "SMOKED BURGER",
+        "description": "Carne ahumada artesanalmente al estilo Low & Slow con humo de nogal. En pan de cristal con salsa mayo smoked bacon, queso cheddar ahumado y cebolla pochada.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/smoked-burger.png",
+        "price": 10.00,
+        "available": true,
+        "category": "burgers"
+    },
+    "33": {
+        "name": "TRUFFLED BURGER",
+        "description": "Carne de vacuno con boletus y aceite de trufa. En pan de trufa con champiñones Portobello, cebolla pochada y  lascas de queso Grana Padano y acompañada de patatas dipper y queso parmesano, Mayo Truffled, rúcula y tomate.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/truffled-burger.png",
+        "price": 10.20,
+        "available": true,
+        "category": "burgers"
+    },
+    "34": {
+        "name": "CAESAR BURGER",
+        "description": "Carne de vacuno con queso grana padano, bourbon style bacon, lechuga romana, tomate, salsa parmesana y pan rústico de semillas.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/FOSTERS_BURGERS_Caesar_Burger.png",
+        "price": 11.20,
+        "available": true,
+        "category": "burgers"
+    },
+    "35": {
+        "name": "GORGONZOLA BURGER",
+        "description": "Gorgonzola fundido, cebolla caramelizada, nueces, tomate, rúcula, mayonesa balsámica y pan rústico de semillas.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/FOSTERS_BURGERS_Gorgonzola.png",
+        "price": 10.50,
+        "available": true,
+        "category": "burgers"
+    },
+    "36": {
+        "name": "PHILADELPHIA ONION BURGER",
+        "description": "Queso Philadelphia, cebolla caramelizada, tomate en rodajas, carne de vacuno, mezcla de lechugas, mayonesa y pan clásico artesanal.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/fosters_burgers_2_philadelphia_onion_burger_0.png",
+        "price": 10.20,
+        "available": true,
+        "category": "burgers"
+    },
+    "37": {
+        "name": "TRIBECA BURGER",
+        "description": "Queso monterrey jack, aguacate y cebolla caramelizada sobre carne de vacuno, rúcula, tomate, salsa de miel mostaza y pan rústico de semillas.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/FOSTERS_BURGERS_2_Tribeca.png",
+        "price": 10.50,
+        "available": true,
+        "category": "burgers"
+    },
+    "38": {
+        "name": "PULLED PORK BURGER",
+        "description": "Carne de cerdo deshilachada sobre hamburguesa de vacuno con salsa BBQ, queso Cheddar, tomate y lechuga batavia. Con pan clásico artesanal y salsa Mayo Smoked Bacon.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/pulled-pork-burger-new.png",
+        "price": 10.80,
+        "available": false,
+        "category": "burgers"
+    },
+    "39": {
+        "name": "THE VEGGIE BURGER",
+        "description": "Burger de arroz integral, quinoa, beans, salsa BBQ, lechuga trocadero, tomate, aguacate, cebolla morada, maíz, mayonesa garden y queso monterrey jack. En pan rústico de semillas.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/veggie_web_ultima.png",
+        "price": 12.50,
+        "available": true,
+        "category": "burgers"
+    },
+    "40": {
+        "name": "BBQ EGG BURGER",
+        "description": "¡Con huevo a la plancha! Cebolla pochada, bacon ahumado con madera de haya, lechuga batavia, tomate, salsa barbacoa y, por supuesto, carne de vacuno en plan clásico artesanal.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/FOSTERS_BURGERS_BBQ_Egg_Burger.png",
+        "price": 11.50,
+        "available": true,
+        "category": "burgers"
+    },
+    "41": {
+        "name": "DIRECTOR’S CHOICE",
+        "description": "Carne de vacuno con queso cheddar, bacon ahumado con madera de haya, cebolla morada a la plancha, tomate, lechuga batavia, pan clásico artesanal y mayonesa.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/directorchoice_optimizado.png",
+        "price": 10.50,
+        "available": true,
+        "category": "burgers"
+    },
+    "42": {
+        "name": "DIRECTOR’S CHICKEN BURGER",
+        "description": "Filete de pechuga de pollo a la parrilla, queso Cheddar fundido, bacon, mezcla de lechugas, cebolla morada, tomate en rodajas, mayonesa y pan clásico artesanal.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/FOSTERS_BURGERS_Director_Chicken.png",
+        "price": 10.20,
+        "available": false,
+        "category": "burgers"
+    },
+    "43": {
+        "name": "BACON BURGER",
+        "description": "Bacon, carne de vacuno, patatas fritas, mezcla de lechugas, tomate en rodajas, mayonesa y pan clásico artesanal.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/bacon_burger_optimizado.png",
+        "price": 10.20,
+        "available": true,
+        "category": "burgers"
+    },
+    "44": {
+        "name": "CHEESE BURGER",
+        "description": "Queso cheddar fundido sobre carne de vacuno, lechuga batavia, tomate, mayonesa y pan clásico artesanal.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/cheese-burger_optimizado.png",
+        "price": 9.80,
+        "available": true,
+        "category": "burgers"
+    },
+    "45": {
+        "name": "BANOFFEE CHEESECAKE",
+        "description": "Tarta de queso y plátano sobre una base de galleta, con dulce de leche y acompañado de plátano en rodajas.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/banoffee-cheesecake.png",
+        "price": 3.50,
+        "available": true,
+        "category": "desserts"
+    },
+    "46": {
+        "name": "ALL STAR BROWNIE",
+        "description": "Brownie caliente de chocolate, acompañado de helado de vainilla, cubierto con nueces y nuestra salsa de chocolate caliente.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/fhstreet-allstar-brownie_0.png",
+        "price": 3.80,
+        "available": true,
+        "category": "desserts"
+    },
+    "47": {
+        "name": "DEATH BY CHOCOLATE",
+        "description": "Base de bizcocho de chocolate, con helado de chocolate cubierto con una crujiente capa de chocolate blanco y salsa de chocolate, pepitas de chocolate puro, chispas de azúcar oro y un toque de leche condensada.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/dead-by-chocolate-ok-2013.png",
+        "price": 3.90,
+        "available": true,
+        "category": "desserts"
+    },
+    "48": {
+        "name": "OREO COOKIES SUNDAE",
+        "description": "Dos bolas de helado de vainilla con galletas Oreo®, salsa de chocolate y nata.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/oreo-cookies-sundae.png",
+        "price": 3.80,
+        "available": true,
+        "category": "desserts"
+    },
+    "49": {
+        "name": "CHEESE & CHOCOLATE CAKE",
+        "description": "Tarta de queso con una base de bizcocho de chocolate, servida con nata y chocolate caliente.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/fhstreet-cheese-chocolate_cake_0.png",
+        "price": 4.20,
+        "available": true,
+        "category": "desserts"
+    },
+    "50": {
+        "name": "NEW YORK CHEESE CAKE",
+        "description": "Tarta de queso, elaborada con queso Philadelphia y acompañada de salsa y frutos del bosque.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/fhstreet-newyork-cheesecake_0.png",
+        "price": 4.10,
+        "available": true,
+        "category": "desserts"
+    },
+    "51": {
+        "name": "DEVIL'S FOOD CAKE",
+        "description": "Delicioso bizcocho de chocolate relleno de crema de chocolate, cubierto con chocolate fondant y bañado con nuestra salsa de chocolate y trocitos de galleta Chips Ahoy®.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/devils-food-cake-sin-sello.png",
+        "price": 4.50,
+        "available": true,
+        "category": "desserts"
+    },
+    "52": {
+        "name": "WAFFLY JERRY",
+        "description": "Tres minigofres con helado de vainilla Cookie Dough de Ben & Jerry's, con dulce de leche y pepitas de chocolate.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/waffly_jerry_2_1000x495.png",
+        "price": 3.50,
+        "available": true,
+        "category": "desserts"
+    },
+    "53": {
+        "name": "AMAZING CHOCO BALL",
+        "description": "Esfera de chocolate que derretimos frente a ti con chocolate caliente, con interior cremoso de frosting de Oreo® y con trocitos de Chips Ahoy®.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/amazing-choco-ball.png",
+        "price": 4.50,
+        "available": true,
+        "category": "desserts"
+    },
+    "54": {
+        "name": "PANCAKES PARADISE",
+        "description": "Tortitas servidas con nata, plátano, nueces, pepitas de chocolate negro y bañadas en sirope de arce y dulce de leche.",
+        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/pacakes-paradise.png",
+        "price": 4.60,
+        "available": true,
+        "category": "desserts"
+    },
+    "55": {
+        "name": "Cacaolat® ORIGINAL",
+        "description": "El placer cotidiano del mejor cacao.",
+        "pathImage": "https://cdn1.cacaolat.es/assets/uploads/original-vidrio.png",
+        "price": 2.50,
+        "available": true,
+        "category": "coffees"
     }
 }

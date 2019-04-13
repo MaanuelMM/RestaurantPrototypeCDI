@@ -7,16 +7,20 @@
         "name": "Entrantes",
         "active": false
     },
-    "meats": {
+    "salads": {
+        "name": "Ensaladas",
+        "active": false
+    },
+    "meals": {
         "name": "Carnes",
         "active": false
     },
-    "vegetables": {
-        "name": "Vegetales",
+    "sandwiches": {
+        "name": "Sandwiches",
         "active": false
     },
-    "vegan": {
-        "name": "Vegano",
+    "burgers": {
+        "name": "Hamburguesas",
         "active": false
     },
     "desserts": {
@@ -24,7 +28,7 @@
         "active": false
     },
     "coffees": {
-        "name": "Cafés",
+        "name": "Cafés & batidos",
         "active": false
     }
 }
