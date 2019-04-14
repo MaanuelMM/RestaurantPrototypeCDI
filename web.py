@@ -29,7 +29,8 @@ def root():
 
 @app.route("/index.html")
 def index():
-    return render_template("index.html")
+    return render_template("/index.html", title="Inicio",
+                           img_viewer=True, fixed_navbar=True)
 
 @app.route("/about.html")
 def about():
@@ -61,11 +62,14 @@ def customer_root():
 
 @app.route("/customer/home.html")
 def customer_home():
-    return "!", 200
+    return render_template("/customer/home.html", title="Cliente",
+                           img_viewer=False, fixed_navbar=False)
 
 @app.route("/products/list.html")
 def products_list():
-    return render_template("/products/list.html", categories=data.categories,
+    return render_template("/products/list.html", title="Productos",
+                           img_viewer=True, fixed_navbar=True,
+                           categories=data.categories,
                            products=data.products)
 
 
