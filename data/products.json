@@ -90,7 +90,7 @@
     "12": {
         "name": "AGUA Font Vella®",
         "description": "De lo más profundo de la tierra emerge un agua con propiedades únicas: Font Vella. 100% equilibrada, sin impurezas y totalmente segura.",
-        "pathImage": "https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/201712/13/00118630003624____1__600x600.jpg",
+        "pathImage": "/static/products/drinks/agua-font-vella.jpg",
         "price": 1.80,
         "available": true,
         "category": "drinks"
@@ -432,10 +432,82 @@
         "category": "desserts"
     },
     "55": {
-        "name": "Cacaolat® ORIGINAL",
-        "description": "El placer cotidiano del mejor cacao.",
-        "pathImage": "https://cdn1.cacaolat.es/assets/uploads/original-vidrio.png",
-        "price": 2.50,
+        "name": "BATIDO Cacaolat® ORIGINAL",
+        "description": "Una fórmula secreta que se mantiene intacta desde 1933 para que disfrutes cada día del auténtico placer de Cacaolat.",
+        "pathImage": "/static/products/coffees/cacaolat-original.png",
+        "price": 2.10,
+        "available": true,
+        "category": "coffees"
+    },
+    "56": {
+        "name": "CAFÉ CON LECHE",
+        "description": "Italia es probablemente el hogar de la cultura del café más querido y más famoso del mundo. En Italia el día empieza con un caffelatte acompañado con bizcochos o un trozo de pastel.",
+        "pathImage": "https://www.delonghi.com/Global/recipes/Coffee/caffelatte.png",
+        "price": 1.50,
+        "available": true,
+        "category": "coffees"
+    },
+    "57": {
+        "name": "CAFÉ ESPRESSO",
+        "description": "Cuando está perfectamente preparado, se reconoce un buen espresso por su espuma cremosa, compacta y con su patrón característico de tonos más oscuros hacia el centro.",
+        "pathImage": "https://www.delonghi.com/Global/recipes/Coffee/espresso.png",
+        "price": 1.50,
+        "available": true,
+        "category": "coffees"
+    },
+    "58": {
+        "name": "CAFÉ LARGO",
+        "description": "El café largo tiene el triple de café que un café espresso. Cuanto más largo es el proceso de preparación, más alto es el contenido de cafeína.",
+        "pathImage": "https://www.delonghi.com/Global/recipes/Coffee/long.png",
+        "price": 1.80,
+        "available": true,
+        "category": "coffees"
+    },
+    "59": {
+        "name": "CAPPUCCINO",
+        "description": "El nombre cappuccino deriva de los monjes de la Orden Capuchina, concretamente a las capuchas usadas por los monjes y cuya forma recuerda a la que toma la espuma de un capuchino.",
+        "pathImage": "https://www.delonghi.com/Global/recipes/Coffee/cappuccino.png",
+        "price": 1.60,
+        "available": true,
+        "category": "coffees"
+    },
+    "60": {
+        "name": "LATTE MACCHIATO",
+        "description": "El consumo de café se inicia a una edad temprana en Italia - con el latte macchiato: una mezcla de café, leche caliente y espuma de leche.",
+        "pathImage": "https://www.delonghi.com/Global/recipes/Coffee/latte-macchiato.png",
+        "price": 1.80,
+        "available": true,
+        "category": "coffees"
+    },
+    "61": {
+        "name": "CHOCOLATE CALIENTE",
+        "description": "El chocolate caliente es la bebida ideal para toda la familia.",
+        "pathImage": "https://www.delonghi.com/Global/recipes/Coffee/chocolate.png",
+        "price": 1.90,
+        "available": false,
+        "category": "coffees"
+    },
+    "62": {
+        "name": "LECHE CALIENTE",
+        "description": "Disfruta del típico vaso de leche caliente rica y cremosa.",
+        "pathImage": "https://www.delonghi.com/Global/recipes/Coffee/latte.png",
+        "price": 1.10,
+        "available": true,
+        "category": "coffees"
+    },
+    "63": {
+        "name": "ZUMO DE NARANJA NATURAL",
+        "description": "Zumo natural exprimido al momento de servir.",
+        "pathImage": "/static/products/coffees/zumo-naranja.jpg",
+        "price": 1.35,
+        "available": true,
+        "category": "coffees"
+    },
+    "64": {
+        "name": "TÉ LIMÓN",
+        "description": "Para aquellos fanáticos del té al limón, originario de Delhi.",
+        "pathImage": "/static/products/coffees/te-limon.jpg",
+        "price": 1.45,
         "available": true,
         "category": "coffees"
     }
