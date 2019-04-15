@@ -4,18 +4,26 @@
 <head>
     <title>{{ title }} | Restaurante CDI</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    {% if img_viewer %}
     <link href="/static/styles/img_viewer.css" rel="stylesheet">
-    {% endif %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <style>
-        body {
+        .body {
             font-family: 'Roboto', sans-serif;
+        }
+
+        .nav-pills.warning>li>a.active {
+            background-color: #ffc107 !important;
+            color: #212529 !important;
+        }
+
+        .nav-pills.warning>li>a {
+            background-color: transparent !important;
+            color: #ffc107 !important;
         }
     </style>
 </head>
@@ -39,9 +47,9 @@
     {% endif %}
 
     <!–– It's mandatory to identify fixed navbar with '#main-navbar' identifier -->
-    {% if fixed_navbar %}
-    <script src="/static/scripts/fixed_navbar.js"></script>
-    {% endif %}
+        {% if fixed_navbar %}
+        <script src="/static/scripts/fixed_navbar.js"></script>
+        {% endif %}
 
 </body>
 

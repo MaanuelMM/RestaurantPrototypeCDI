@@ -123,7 +123,7 @@
         "name": "Coca-Cola® ZERO AZÚCAR Y ZERO CAFEÍNA",
         "description": "Sin azúcar, sin calorías y sin cafeína, que te permite disfrutar de un gran sabor y no te quita el sueño.",
         "pathImage": "https://www.cocacola.es/content/dam/GO/CokeZone/Spain/Coca-Cola-Full-Red-vidrio-Zero-Zero.jpg",
-        "price": 2.50,
+        "price": 2.20,
         "available": true,
         "category": "drinks"
     },
@@ -131,7 +131,7 @@
         "name": "Fanta® NARANJA",
         "description": "Cuando abres una Fanta Naranja sube la diversión, sus burbujas tienen ese efecto, ¡comprobado!",
         "pathImage": "/static/products/drinks/fanta-naranja.png",
-        "price": 2.50,
+        "price": 2.20,
         "available": true,
         "category": "drinks"
     },
@@ -139,7 +139,7 @@
         "name": "Fanta® LIMÓN",
         "description": "Si eres de Fanta Limón, eres ácido y molón, no hay más… Bueno sí… mucha diversión.",
         "pathImage": "/static/products/drinks/fanta-limon.png",
-        "price": 2.50,
+        "price": 2.20,
         "available": true,
         "category": "drinks"
     },
@@ -179,7 +179,7 @@
         "name": "BEEF BONE",
         "description": "Carne de vacuno cocinada lentamente y terminada a la parrilla con salsa BBQ, con cebolla crispy, tomate cherry y cilantro.",
         "pathImage": "https://fostershollywood.es/sites/default/files/images/product/beef-bone.png",
-        "price": 9.80,
+        "price": 10.80,
         "available": false,
         "category": "meals"
     },
@@ -510,5 +510,69 @@
         "price": 1.45,
         "available": true,
         "category": "coffees"
+    },
+    "65": {
+        "name": "CERVEZA Estrella Galicia® ESPECIAL",
+        "description": "La auténtica. La original. Desde 1906.",
+        "pathImage": "/static/products/drinks/cerveza-estrella-galicia-especial.png",
+        "price": 1.50,
+        "available": true,
+        "category": "drinks"
+    },
+    "66": {
+        "name": "CERVEZA Estrella Galicia® 0,0",
+        "description": "Disfruta del mejor sabor sin alcohol.",
+        "pathImage": "/static/products/drinks/cerveza-estrella-galicia-00.png",
+        "price": 1.50,
+        "available": true,
+        "category": "drinks"
+    },
+    "67": {
+        "name": "CERVEZA Shandy Estrella Galicia®",
+        "description": "La mejor cerveza, ahora con un toque ácido de limón.",
+        "pathImage": "/static/products/drinks/cerveza-shandy-estrella-galicia.png",
+        "price": 1.65,
+        "available": false,
+        "category": "drinks"
+    },
+    "68": {
+        "name": "VERMÚ La Casera®",
+        "description": "Vermú y gaseosa La Casera® con un toque a naranja: una fórmula magistral perfecta creada por y para la hora del aperitivo.",
+        "pathImage": "/static/products/drinks/vermu-vermudez-la-casera.png",
+        "price": 1.80,
+        "available": true,
+        "category": "drinks"
+    },
+    "69": {
+        "name": "GASEOSA La Casera®",
+        "description": "El refresco mediterráneo, transparente como el agua pero con burbujas, un toque chispeante que te refrescará hasta los tuétanos. ¡Ya quisiera el agua!",
+        "pathImage": "/static/products/drinks/gaseosa-la-casera.png",
+        "price": 1.65,
+        "available": true,
+        "category": "drinks"
+    },
+    "70": {
+        "name": "TINTO DE VERANO CON LIMÓN La Casera®",
+        "description": "El carácter chispeante de La Casera® combinado con el equilibrado vino tempranillo y ese toque cítrico de nuestras huertas mediterráneas.",
+        "pathImage": "/static/products/drinks/tinto-verano-limon-la-casera.png",
+        "price": 1.85,
+        "available": true,
+        "category": "drinks"
+    },
+    "71": {
+        "name": "TINTO DE VERANO La Casera®",
+        "description": "El carácter chispeante de La Casera® combinado con el equilibrado vino tempranillo. Déjate de experimentos en el restaurante, ¡esta es la mezcla maestra!",
+        "pathImage": "/static/products/drinks/tinto-verano-la-casera.png",
+        "price": 1.80,
+        "available": true,
+        "category": "drinks"
+    },
+    "72": {
+        "name": "TINTO DE VERANO CON LIMÓN SIN ALCOHOL La Casera®",
+        "description": "El genuino de La Casera® pero SIN alcohol, para que puedas tomarlo en cualquier momento, en cualquier lugar y disfrutando con el sabor de siempre.",
+        "pathImage": "/static/products/drinks/tinto-verano-limon-sin-alcohol-la-casera.png",
+        "price": 1.75,
+        "available": true,
+        "category": "drinks"
     }
 }
