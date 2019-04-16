@@ -44,19 +44,32 @@
                         <h4 class="card-title text-center"><b>{{ product.name }}</b></h4>
                         <p class="mt-auto card-text text-center">{{ product.description }}</p>
                         <div class="mt-auto d-flex flex-column">
+                            {% if customer %}
                             <h2 class="mt-auto mb-3 text-center"><b>
                                     {{ "%.2f" | format(product.price) }} €</span></b></h2>
-                            {% if customer %}
                             {% if product.available %}
                             <a href="#" class="mt-auto btn btn-primary">Añadir</a>
                             {% else %}
                             <a class="mt-auto btn btn-outline-primary disabled" disabled>No disponible</a>
                             {% endif %}
                             {% else %}
+                            <form action="/waiter/products/list.html" method="POST">
+                                <input type="hidden" name="current-category" value="{{ product.category }}">
+                                <input type="hidden" name="product-id" value="{{ product_id }}">
+                                <input type="number" step=".01" min="0.00"
+                                    class="mt-4 form-control form-control-lg text-center" aria-describedby="priceHelp"
+                                    name="product-price" value="{{ '%.2f' | format(product.price) }}"
+                                    onkeypress="if(isNaN(this.value)) return false;"
+                                    onchange="if(this.value == '') this.value = 0.00; else this.value = parseFloat(this.value).toFixed(2);">
+                                <small id="priceHelp" class="mb-2 form-text text-center text-muted">El precio se
+                                    encuentra en euros.</small>
+                                <button type="submit" class="mt-auto mb-4 btn btn-warning btn-block">Cambiar
+                                    precio</button>
+                            </form>
                             {% if product.available %}
-                            <span class="mt-auto mb-3 badge badge-pill badge-success">DISPONIBLE</span>
+                            <span class="mt-auto mb-2 badge badge-pill badge-success">DISPONIBLE</span>
                             {% else %}
-                            <span class="mt-auto mb-3 badge badge-pill badge-danger">NO DISPONIBLE</span>
+                            <span class="mt-auto mb-2 badge badge-pill badge-danger">NO DISPONIBLE</span>
                             {% endif %}
                             <form action="/waiter/products/list.html" method="POST">
                                 <input type="hidden" name="current-category" value="{{ product.category }}">
