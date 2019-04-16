@@ -16,12 +16,18 @@ except:
     exit()
 
 app = Flask(__name__)
+'''
+aux = list()
 
+for product in data.products:
+    aux.append(int(product))
 
-@app.route('/favicon.ico')
+print(max(aux))
+'''
+@app.route("/favicon.ico")
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory(os.path.join(app.root_path, "static"),
+                               "favicon.ico", mimetype="image/vnd.microsoft.icon")
 
 
 @app.route("/")
@@ -59,7 +65,7 @@ def waiter_products():
 def waiter_dish():
     if(request.method == 'POST' and "current-category" in request.form and
        "product-id" in request.form and request.form["product-id"] in data.products and
-       request.form["current-category"] in data.categories):
+       request.form["current-category"] in data.product_categories):
         if("product-price" in request.form):
             data.products[request.form["product-id"]
                           ]["price"] = float(request.form["product-price"])
@@ -67,20 +73,20 @@ def waiter_dish():
             data.products[request.form["product-id"]
                           ]["available"] = not data.products[request.form["product-id"]
                                                              ]["available"]
-        for category in data.categories:
+        for category in data.product_categories:
             if(category == request.form["current-category"]):
-                data.categories[category]["active"] = True
+                data.product_categories[category]["active"] = True
             else:
-                data.categories[category]["active"] = False
+                data.product_categories[category]["active"] = False
     else:
-        for category in data.categories:
+        for category in data.product_categories:
             if(category == "drinks"):
-                data.categories[category]["active"] = True
+                data.product_categories[category]["active"] = True
             else:
-                data.categories[category]["active"] = False
+                data.product_categories[category]["active"] = False
     return render_template("/products/list.html", title="Productos",
                            img_viewer=True, fixed_navbar=True,
-                           categories=data.categories,
+                           categories=data.product_categories,
                            products=data.products,
                            customer=False)
 
@@ -103,14 +109,14 @@ def customer_home():
 
 @app.route("/customer/products/list.html", methods=['GET', 'POST'])
 def products_list():
-    for category in data.categories:
+    for category in data.product_categories:
         if(category == "drinks"):
-            data.categories[category]["active"] = True
+            data.product_categories[category]["active"] = True
         else:
-            data.categories[category]["active"] = False
+            data.product_categories[category]["active"] = False
     return render_template("/products/list.html", title="Productos",
                            img_viewer=True, fixed_navbar=True,
-                           categories=data.categories,
+                           categories=data.product_categories,
                            products=data.products,
                            customer=True)
 

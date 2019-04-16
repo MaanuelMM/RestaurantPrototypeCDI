@@ -1,0 +1,14 @@
+{
+    "pending": {
+        "name": "Pendiente"
+    },
+    "ear_kitchen": {
+        "name": "Oído cocina"
+    },
+    "delivered": {
+        "name": "Entregado"
+    },
+    "cancelled": {
+        "name": "Cancelado"
+    }
+}
