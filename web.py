@@ -65,7 +65,8 @@ def waiter_dish():
                           ]["price"] = float(request.form["product-price"])
         else:
             data.products[request.form["product-id"]
-                          ]["available"] = not data.products[request.form["product-id"]]["available"]
+                          ]["available"] = not data.products[request.form["product-id"]
+                                                             ]["available"]
         for category in data.categories:
             if(category == request.form["current-category"]):
                 data.categories[category]["active"] = True
