@@ -54,7 +54,8 @@ def waiter_root():
 
 @app.route("/waiter/home.html")
 def waiter_home():
-    return "!", 200
+    return render_template("/waiter/home.html", title="Menu Camarero",
+                           img_viewer=False, fixed_navbar=False)
 
 
 @app.route("/waiter/tables/list.html")
