@@ -16,6 +16,8 @@ except:
     exit()
 
 app = Flask(__name__)
+
+
 '''
 aux = list()
 
@@ -24,6 +26,16 @@ for product in data.products:
 
 print(max(aux))
 '''
+
+
+def isfloat(value):
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
+
+
 @app.route("/favicon.ico")
 def favicon():
     return send_from_directory(os.path.join(app.root_path, "static"),
@@ -61,18 +73,23 @@ def waiter_home():
 def waiter_tables():
     return render_template("/tables/list.html", title="Mesas",
                            img_viewer=False, fixed_navbar=True,
-                           tables=data.tables)
+                           tables=data.tables, customer=False)
 
 
-@app.route("/waiter/tables/<num>/info.html")
+@app.route("/waiter/tables/<num>/info.html", methods=['GET', 'POST'])
 def waiter_table(num):
     if num in data.tables:
+        if(request.method == 'POST' and "state" in request.form and "record-id" in request.form and
+           request.form["state"] in data.order_states and request.form["record-id"] in data.orders_record):
+            data.orders_record[request.form["record-id"]
+                               ]["state"] = request.form["state"]
         return render_template("/tables/info.html", title="Mesa "+num,
                                num=num, img_viewer=True, fixed_navbar=True,
                                states=data.order_states,
                                orders=data.orders,
                                orders_record=data.orders_record,
-                               products=data.products)
+                               products=data.products,
+                               customer=False)
     else:
         abort(404)
 
@@ -87,7 +104,7 @@ def waiter_dish():
     if(request.method == 'POST' and "current-category" in request.form and
        "product-id" in request.form and request.form["product-id"] in data.products and
        request.form["current-category"] in data.product_categories):
-        if("product-price" in request.form):
+        if("product-price" in request.form and isfloat(request.form["product-price"])):
             data.products[request.form["product-id"]
                           ]["price"] = float(request.form["product-price"])
         else:
