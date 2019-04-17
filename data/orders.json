@@ -4,13 +4,13 @@
         "bill_requested": true,
         "pay_by_card": false,
         "paid": true,
-        "table_id": 2
+        "table_id": "2"
     },
     "2": {
         "date_time": "2019-04-11T19:44:23.230Z",
         "bill_requested": true,
         "pay_by_card": true,
         "paid": true,
-        "table_id": 4
+        "table_id": "4"
     }
 }

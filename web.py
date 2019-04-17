@@ -60,8 +60,21 @@ def waiter_home():
 @app.route("/waiter/tables/list.html")
 def waiter_tables():
     return render_template("/tables/list.html", title="Mesas",
-                           img_viewer=True, fixed_navbar=True,
+                           img_viewer=False, fixed_navbar=True,
                            tables=data.tables)
+
+
+@app.route("/waiter/tables/<num>/info.html")
+def waiter_table(num):
+    if num in data.tables:
+        return render_template("/tables/info.html", title="Mesa "+num,
+                               num=num, img_viewer=True, fixed_navbar=True,
+                               states=data.order_states,
+                               orders=data.orders,
+                               orders_record=data.orders_record,
+                               products=data.products)
+    else:
+        abort(404)
 
 
 @app.route("/waiter/products/home.html")

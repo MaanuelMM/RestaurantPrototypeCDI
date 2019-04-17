@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation" id="main-navbar">
+    <div class="container-fluid">
+        <a href="/waiter/tables/list.html" class="mt-auto btn btn-warning my-2 my-sm-0">
+            <h5>Atrás</h5>
+        </a>
+        <p class="display-4 text-white">{{ title }}</p>
+        <a class="mt-auto navbar-brand my-2 my-sm-0">
+            <img src="/static/favicon.svg" alt="logo" style="width:64px">
+        </a>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <a href="/waiter/tables/{{ num }}/info.html" class="mt-auto mb-4 btn btn-warning btn-block">Actualizar</a>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        {% for state_item, state in states.items() %}
+        <div class="col-xl-3">
+            <div class="card" style="margin:8px">
+                <div class="d-flex flex-column card-body bg-light text-dark">
+                    <h3 class="text-center" style="margin-bottom:16px;">{{ state.name }}</h3>
+                    {% for order_id, order in orders.items() %}
+                    {% if order.table_id == num %}
+                    {% for order_record_id, order_record in orders_record.items() %}
+                    {% if order_record.order_id == order_id and order_record.state == state_item %}
+                    <div class="card mb-3">
+                        <div class="row no-gutters">
+                            <div class="m-auto col-md-4">
+                                <img src="{{ products[order_record.product_id]['pathImage'] }}" class="card-img"
+                                    alt="{{ products[order_record.product_id]['name'] }}" style="cursor:pointer"
+                                    onclick="onClick(this)">
+                            </div>
+                            <div class="m-auto col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ products[order_record.product_id]['name'] }}</h5>
+                                    <p class="card-text"><small class="text-muted">Pedido #{{ order_id }} | Orden
+                                            #{{ order_record_id }}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
