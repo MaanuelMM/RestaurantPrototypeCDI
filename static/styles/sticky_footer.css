@@ -1,0 +1,14 @@
+/* Sticky footer styles
+   It must be combined with sticky_footer.js script
+-------------------------------------------------- */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

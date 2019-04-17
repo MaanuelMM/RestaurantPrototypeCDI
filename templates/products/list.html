@@ -4,6 +4,11 @@
 <nav class="navbar navbar-expand-lg {% if customer %}navbar-light bg-light{% else %}navbar-dark bg-dark{% endif %} fixed-top"
     role="navigation" id="main-navbar">
     <div class="container-fluid">
+        <a href="/{% if customer %}customer{% else %}waiter{% endif %}/home.html"
+            class="mt-auto btn btn-{% if customer %}primary{% else %}warning{% endif %} my-2 my-sm-0"
+            style="margin-right:16px">
+            <h5>Atrás</h5>
+        </a>
         <a class="navbar-brand">
             <img src="/static/favicon.svg" alt="logo" style="width:64px">
         </a>
@@ -14,12 +19,12 @@
         <div class="collapse navbar-collapse" id="navbarResponsive"
             style="overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;">
             <ul class="nav nav-pills ml-auto{% if not customer %} warning{% endif %}" id="categoryFood" role="tablist"
-                style="margin:16px;overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;">
+                style="overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;">
                 {% for category_item, category in categories.items() %}
-                <li class="m-auto nav-item" style="margin-bottom:8px">
-                    <a class="nav-link{% if category.active %} active{% endif %}" id="{{ category_item }}-tab"
-                        data-toggle="tab" href="#{{ category_item }}" role="tab" aria-controls="{{ category_item }}"
-                        aria-selected="true">
+                <li class="m-auto nav-item">
+                    <a class="nav-link{% if category.active %} active{% endif %} text-center"
+                        id="{{ category_item }}-tab" data-toggle="tab" href="#{{ category_item }}" role="tab"
+                        aria-controls="{{ category_item }}" aria-selected="true">
                         <h5>{{ category.name }}</h5>
                     </a>
                 </li>
@@ -59,7 +64,7 @@
                                 <input type="number" step=".01" min="0.00"
                                     class="mt-4 form-control form-control-lg text-center" aria-describedby="priceHelp"
                                     name="product-price" value="{{ '%.2f' | format(product.price) }}"
-                                    onkeypress="if(isNaN(this.value)) return false;"
+                                    oninput="if(isNaN(this.value)) return false;"
                                     onchange="if(this.value == '') this.value = 0.00; else this.value = parseFloat(this.value).toFixed(2);">
                                 <small id="priceHelp" class="mb-2 form-text text-center text-muted">El precio se
                                     encuentra en euros.</small>

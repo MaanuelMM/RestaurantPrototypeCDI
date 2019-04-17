@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    {% if img_viewer %}
     <link href="/static/styles/img_viewer.css" rel="stylesheet">
+    {% endif %}
+    <link href="/static/styles/sticky_footer.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -33,7 +36,8 @@
     {% block content %}{% endblock %}
 
     <footer>
-        <div class="footer-copyright text-center py-3">© 2019 Copyright - Equipo de desarrollo Restaurante CDI
+        <div class="footer text-center {% if customer %}bg-light{% else %}bg-dark text-white{% endif %} py-3"
+            id="sticky-footer">© 2019 Copyright - Equipo de desarrollo Restaurante CDI
         </div>
     </footer>
 
@@ -46,10 +50,11 @@
     <script src="/static/scripts/img_viewer.js"></script>
     {% endif %}
 
-    <!–– It's mandatory to identify fixed navbar with '#main-navbar' identifier -->
-        {% if fixed_navbar %}
-        <script src="/static/scripts/fixed_navbar.js"></script>
-        {% endif %}
+    {% if fixed_navbar %}
+    <script src="/static/scripts/fixed_navbar.js"></script>
+    {% endif %}
+
+    <script src="/static/scripts/sticky_footer.js"></script>
 
 </body>
 

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Authors:      Luis Carles Durá, Jaime García Velázquez, Manuel Martín Malagón, Rafael Rodríguez Sánchez
 # Created:      2019/04/10
-# Last update:  2019/04/16
+# Last update:  2019/04/17
 
 
 import os
@@ -38,7 +38,8 @@ def root():
 @app.route("/index.html")
 def index():
     return render_template("/index.html", title="Inicio",
-                           img_viewer=False, fixed_navbar=False)
+                           img_viewer=False, fixed_navbar=False,
+                           customer=True)
 
 
 @app.route("/about.html")
@@ -54,6 +55,13 @@ def waiter_root():
 @app.route("/waiter/home.html")
 def waiter_home():
     return "!", 200
+
+
+@app.route("/waiter/tables/list.html")
+def waiter_tables():
+    return render_template("/tables/list.html", title="Mesas",
+                           img_viewer=True, fixed_navbar=True,
+                           tables=data.tables)
 
 
 @app.route("/waiter/products/home.html")

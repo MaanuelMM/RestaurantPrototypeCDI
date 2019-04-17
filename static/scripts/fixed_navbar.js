@@ -1,6 +1,6 @@
 $(function () {
     var lastScrollTop = 0;
-    var $navbar = $('.navbar');
+    var $navbar = $('#main-navbar');
 
     $(window).scroll(function (event) {
         var st = $(this).scrollTop();
