@@ -64,5 +64,17 @@
         "product_id": "55",
         "product_price": 2.10,
         "state": "delivered"
+    },
+    "12": {
+        "order_id": "2",
+        "product_id": "55",
+        "product_price": 2.10,
+        "state": "pending"
+    },
+    "13": {
+        "order_id": "2",
+        "product_id": "55",
+        "product_price": 2.10,
+        "state": "ear_kitchen"
     }
 }
