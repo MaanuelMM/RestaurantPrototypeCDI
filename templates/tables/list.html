@@ -31,14 +31,14 @@
                         <span class="mt-auto mb-2 badge badge-pill badge-success">LIBRE</span>
                         {% endif %}
                     </div>
-                    <div class="mt-auto d-flex flex-column">
+                    <div class="mt-auto d-flex card {% if table.notifications != 0 %}bg-dark{% endif %}">
                         <h4 class="text-center">
                             {% if table.notifications == 0 %}
                             <span class="badge badge-light">No hay notificaciones pendientes</span>
                             {% else %}
-                            <span class="badge badge-light">Existe(n) </span><span
+                            <span class="badge badge-dark">Existe(n) </span><span
                                 class="badge badge-warning">{{ table.notifications }}</span><span
-                                class="badge badge-light">
+                                class="badge badge-dark">
                                 notificacion(es) pendiente(s)</span>
                             {% endif %}
                         </h4>
