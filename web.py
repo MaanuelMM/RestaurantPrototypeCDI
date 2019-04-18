@@ -66,8 +66,9 @@ def waiter_root():
 
 @app.route("/waiter/home.html")
 def waiter_home():
-    return render_template("/waiter/home.html", title="Menu Camarero",
-                           img_viewer=False, fixed_navbar=False)
+    return render_template("/waiter/home.html", title="Camarero",
+                           img_viewer=False, fixed_navbar=False,
+                           customer=False)
 
 
 @app.route("/waiter/tables/list.html")
@@ -143,7 +144,8 @@ def customer_root():
 @app.route("/customer/home.html")
 def customer_home():
     return render_template("/customer/home.html", title="Cliente",
-                           img_viewer=False, fixed_navbar=False)
+                           img_viewer=False, fixed_navbar=False,
+                           customer=True)
 
 
 @app.route("/customer/products/list.html", methods=['GET', 'POST'])
