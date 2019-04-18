@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Authors:      Luis Carles Durá, Jaime García Velázquez, Manuel Martín Malagón, Rafael Rodríguez Sánchez
 # Created:      2019/04/10
-# Last update:  2019/04/17
+# Last update:  2019/04/18
 
 
 import os
@@ -77,7 +77,9 @@ def waiter_tables():
     for table_id, table in data.tables.items():
         count = 0
         for order_id, order in data.orders.items():
-            if(order["table_id"] == table_id):
+            if order["table_id"] == table_id:
+                if order["bill_requested"] and not order["paid"]:
+                    count = count + 1
                 for order_record in data.orders_record.values():
                     if(order_record["order_id"] == order_id and
                        (order_record["state"] == "pending" or
@@ -92,10 +94,15 @@ def waiter_tables():
 @app.route("/waiter/tables/<num>/info.html", methods=['GET', 'POST'])
 def waiter_table(num):
     if num in data.tables:
-        if(request.method == 'POST' and "state" in request.form and "record-id" in request.form and
-           request.form["state"] in data.order_states and request.form["record-id"] in data.orders_record):
-            data.orders_record[request.form["record-id"]
-                               ]["state"] = request.form["state"]
+        if request.method == 'POST':
+            if("state" in request.form and "record-id" in request.form and
+               request.form["state"] in data.order_states and
+               request.form["record-id"] in data.orders_record):
+                data.orders_record[request.form["record-id"]
+                                   ]["state"] = request.form["state"]
+            elif("order-id" in request.form and "paid" in request.form and
+                 request.form["order-id"] in data.orders and request.form["paid"] == "True"):
+                data.orders[request.form["order-id"]]["paid"] = True
         return render_template("/tables/info.html", title="Mesa "+num,
                                num=num, img_viewer=True, fixed_navbar=True,
                                states=data.order_states,

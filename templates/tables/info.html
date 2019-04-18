@@ -18,6 +18,29 @@
     <a href="/waiter/tables/{{ num }}/info.html" class="mt-auto mb-4 btn btn-warning btn-block">Actualizar</a>
 </div>
 
+{% for order_id, order in orders.items() %}
+{% if order.table_id == num and order.bill_requested and not order.paid %}
+<div class="container-fluid">
+    <div class="alert alert-warning">
+        <div class="row">
+            <div class="col-xl-9" style="margin-bottom:8px;margin-top:8px;">
+                <strong>¡Cuenta pedida!</strong> El cliente con el pedido #{{ order_id }} realizará el pago con
+                <strong>{% if order.pay_by_card %}TARJETA{% else %}EFECTIVO{% endif %}</strong>.{% if order.invoice %}
+                Además, ha solicitado <strong>FACTURA</strong>.{% endif %}
+            </div>
+            <div class="col-xl-3">
+                <form action="/waiter/tables/{{ num }}/info.html" method="POST" class="m-auto">
+                    <input type="hidden" name="order-id" value="{{ order_id }}">
+                    <input type="hidden" name="paid" value="True">
+                    <button type="submit" class="btn btn-warning btn-block">Pagado</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+
 <div class="container-fluid">
     <div class="row">
         {% for state_item, state in states.items() %}
