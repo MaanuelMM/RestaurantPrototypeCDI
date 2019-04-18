@@ -24,12 +24,24 @@
             <div class="card" style="margin:8px">
                 <div class="d-flex flex-column card-body bg-light text-dark">
                     <h4 class="card-title text-center"><b>Mesa {{ table_id }}</b></h4>
-                    <div class="mt-auto d-flex flex-column">
+                    <div class="mb-2 mt-2 d-flex flex-column">
                         {% if table.occupied %}
                         <span class="mt-auto mb-2 badge badge-pill badge-danger">OCUPADA</span>
                         {% else %}
                         <span class="mt-auto mb-2 badge badge-pill badge-success">LIBRE</span>
                         {% endif %}
+                    </div>
+                    <div class="mt-auto d-flex flex-column">
+                        <h4 class="text-center">
+                            {% if table.notifications == 0 %}
+                            <span class="badge badge-light">No hay notificaciones pendientes</span>
+                            {% else %}
+                            <span class="badge badge-light">Existe(n) </span><span
+                                class="badge badge-warning">{{ table.notifications }}</span><span
+                                class="badge badge-light">
+                                notificacion(es) pendiente(s)</span>
+                            {% endif %}
+                        </h4>
                     </div>
                 </div>
             </div>

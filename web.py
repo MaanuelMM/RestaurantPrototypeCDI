@@ -73,6 +73,16 @@ def waiter_home():
 
 @app.route("/waiter/tables/list.html")
 def waiter_tables():
+    for table_id, table in data.tables.items():
+        count = 0
+        for order_id, order in data.orders.items():
+            if(order["table_id"] == table_id):
+                for order_record in data.orders_record.values():
+                    if(order_record["order_id"] == order_id and
+                       (order_record["state"] == "pending" or
+                        order_record["state"] == "ear_kitchen")):
+                        count = count + 1
+        table["notifications"] = count
     return render_template("/tables/list.html", title="Mesas",
                            img_viewer=False, fixed_navbar=True,
                            tables=data.tables, customer=False)
