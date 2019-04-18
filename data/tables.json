@@ -32,7 +32,7 @@
         "fourth_heath_section": false
     },
     "5": {
-        "occupied": false,
+        "occupied": true,
         "relative_height": 0,
         "first_heath_section": false,
         "second_heath_section": false,

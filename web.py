@@ -6,6 +6,7 @@
 
 
 import os
+import collections
 
 from flask import Flask, flash, redirect, render_template, request, session, abort, send_from_directory
 from loaders.data_loader import DataLoader
@@ -80,7 +81,7 @@ def waiter_tables():
                 for order_record in data.orders_record.values():
                     if(order_record["order_id"] == order_id and
                        (order_record["state"] == "pending" or
-                        order_record["state"] == "ear_kitchen")):
+                            order_record["state"] == "ear_kitchen")):
                         count = count + 1
         table["notifications"] = count
     return render_template("/tables/list.html", title="Mesas",
@@ -98,21 +99,38 @@ def waiter_table(num):
         return render_template("/tables/info.html", title="Mesa "+num,
                                num=num, img_viewer=True, fixed_navbar=True,
                                states=data.order_states,
-                               orders=data.orders,
-                               orders_record=data.orders_record,
+                               orders=collections.OrderedDict(
+                                   reversed(list(data.orders.items()))),
+                               orders_record=collections.OrderedDict(
+                                   reversed(list(data.orders_record.items()))),
                                products=data.products,
                                customer=False)
     else:
         abort(404)
 
 
-@app.route("/waiter/products/home.html")
-def waiter_products():
-    return "!", 200
+@app.route("/waiter/orders/list.html")
+def waiter_orders():
+    for order in data.orders.values():
+        order["total"] = 0.0
+    for order_record in data.orders_record.values():
+        if(order_record["state"] in data.order_states and order_record["state"] != "cancelled"):
+            data.orders[order_record["order_id"]]["total"] = data.orders[order_record["order_id"]
+                                                                         ]["total"] + order_record["product_price"]
+    return render_template("/orders/list.html", title="Pedidos",
+                           img_viewer=True, fixed_navbar=True,
+                           categories=data.product_categories,
+                           states=data.order_states,
+                           orders=collections.OrderedDict(
+                               reversed(list(data.orders.items()))),
+                           orders_record=collections.OrderedDict(
+                               reversed(list(data.orders_record.items()))),
+                           products=data.products,
+                           customer=False)
 
 
 @app.route("/waiter/products/list.html", methods=['GET', 'POST'])
-def waiter_dish():
+def waiter_products():
     if(request.method == 'POST' and "current-category" in request.form and
        "product-id" in request.form and request.form["product-id"] in data.products and
        request.form["current-category"] in data.product_categories):

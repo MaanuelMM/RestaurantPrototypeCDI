@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation" id="main-navbar">
+    <div class="container-fluid">
+        <a href="/waiter/home.html" class="mt-auto mb-auto btn btn-warning my-2 my-sm-0">
+            <h5>Atrás</h5>
+        </a>
+        <p class="display-4 text-white">{{ title }}</p>
+        <a class="mt-auto navbar-brand my-2 my-sm-0">
+            <img src="/static/favicon.svg" alt="logo" style="width:64px">
+        </a>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <a href="/waiter/orders/list.html" class="mt-auto mb-4 btn btn-warning btn-block">Actualizar</a>
+</div>
+
+<div class="container-fluid">
+    {% for order_id, order in orders.items() %}
+    {% if order.total > 0.0 %}
+    <div class="card" style="margin:8px">
+        <div class="d-flex flex-column card-body bg-light text-dark">
+            <h2 class="text-center" style="margin-bottom:16px;">Pedido #{{ order_id }} <small>(Mesa
+                    #{{ order.table_id }})</small></h2>
+            <h4 class="text-center" style="margin-bottom:16px;">Total: {{ '%.2f' | format(order.total) }} euros</h4>
+            <h6 class="text-center" style="margin-bottom:16px;">Fecha: {{ order.date_time[0:10] }}
+                ({{order.date_time[11:19]}} horas)</h6>
+            <div class="mt-3 mb-3 row justify-content-center">
+                {% for order_record_id, order_record in orders_record.items() %}
+                {% if order_record.order_id == order_id and order_record.state in states and order_record.state != "cancelled" %}
+                <div class="card mb-3" style="width:300px;margin:8px">
+                    <div class="m-auto row no-gutters">
+                        <div class="m-auto col-md-3">
+                            <img src="{{ products[order_record.product_id]['pathImage'] }}" class="card-img"
+                                alt="{{ products[order_record.product_id]['name'] }}" style="cursor:pointer"
+                                onclick="onClick(this)">
+                        </div>
+                        <div class="m-auto col-md-9">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ products[order_record.product_id]['name'] }}</h5>
+                                <p class="card-text">
+                                    <b>{{ '%.2f' | format(order_record.product_price) }} euros</b></p>
+                                <p class="card-text"><small class="text-muted">Orden #{{ order_record_id }}</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-xl-3 text-center">
+                    <h6>Cuenta pedida:
+                        <b>{% if order.bill_requested %}SÍ{% else %}NO{% endif %}</b></h6>
+                </div>
+                <div class="col-xl-3 text-center">
+                    <h6>Pago con tarjeta:
+                        <b>{% if order.pay_by_card %}SÍ{% else %}NO{% endif %}</b></h6>
+                </div>
+                <div class="col-xl-3 text-center">
+                    <h6>Factura: <b>{% if order.invoice %}SÍ{% else %}NO{% endif %}</b></h6>
+                </div>
+                <div class="col-xl-3 text-center">
+                    <h6>Pagado: <b>{% if order.paid %}SÍ{% else %}NO{% endif %}</b></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
