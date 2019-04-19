@@ -101,8 +101,10 @@ def waiter_table(num):
                 data.orders_record[request.form["record-id"]
                                    ]["state"] = request.form["state"]
             elif("order-id" in request.form and "paid" in request.form and
-                 request.form["order-id"] in data.orders and request.form["paid"] == "True"):
+                 request.form["order-id"] in data.orders and request.form["paid"].lower() == "true"):
                 data.orders[request.form["order-id"]]["paid"] = True
+                data.tables[data.orders[request.form["order-id"]]
+                            ["table_id"]]["occupied"] = False
         return render_template("/tables/info.html", title="Mesa "+num,
                                num=num, img_viewer=True, fixed_navbar=True,
                                states=data.order_states,
