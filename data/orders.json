@@ -1,6 +1,6 @@
 {
     "1": {
-        "date_time": "2019-04-11T21:43:30.000Z",
+        "date_time": "2019-04-11 21:43:30.339458",
         "bill_requested": true,
         "pay_by_card": false,
         "paid": true,
@@ -8,7 +8,7 @@
         "table_id": "2"
     },
     "2": {
-        "date_time": "2019-04-11T21:44:23.230Z",
+        "date_time": "2019-04-11 21:44:23.216512",
         "bill_requested": true,
         "pay_by_card": true,
         "paid": true,
@@ -16,7 +16,7 @@
         "table_id": "4"
     },
     "3": {
-        "date_time": "2019-04-18T20:44:23.215Z",
+        "date_time": "2019-04-18 20:44:23.982342",
         "bill_requested": true,
         "pay_by_card": false,
         "paid": false,
@@ -24,7 +24,7 @@
         "table_id": "1"
     },
     "4": {
-        "date_time": "2019-04-18T20:46:00.245Z",
+        "date_time": "2019-04-18 20:46:00.245261",
         "bill_requested": false,
         "pay_by_card": false,
         "paid": false,

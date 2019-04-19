@@ -53,7 +53,12 @@
                             <h2 class="mt-auto mb-3 text-center"><b>
                                     {{ "%.2f" | format(product.price) }} €</span></b></h2>
                             {% if product.available %}
-                            <a href="#" class="mt-auto btn btn-primary">Añadir</a>
+                            <form action="/customer/{{ num }}/products/list.html" method="POST">
+                                <input type="hidden" name="current-category" value="{{ product.category }}">
+                                <input type="hidden" name="product-id" value="{{ product_id }}">
+                                <input type="hidden" name="order-id" value="{{ num }}">
+                                <button type="submit" class="mt-auto btn btn-primary btn-block">Añadir</button>
+                            </form>
                             {% else %}
                             <a class="mt-auto btn btn-outline-primary disabled" disabled>No disponible</a>
                             {% endif %}

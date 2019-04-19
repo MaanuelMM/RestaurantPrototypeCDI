@@ -6,6 +6,7 @@
 
 
 import os
+import datetime
 import collections
 
 from flask import Flask, flash, redirect, render_template, request, session, abort, send_from_directory
@@ -19,14 +20,28 @@ except:
 app = Flask(__name__)
 
 
-'''
-aux = list()
+def change_table_status(table_id):
+    data.tables["table_id"]["occupied"] = not data.tables["table_id"]["occupied"]
+    data.tables["table_id"]["relative_height"] = 0
+    data.tables["table_id"]["first_heath_section"] = False
+    data.tables["table_id"]["second_heath_section"] = False
+    data.tables["table_id"]["third_heath_section"] = False
+    data.tables["table_id"]["fourth_heath_section"] = False
 
-for product in data.products:
-    aux.append(int(product))
 
-print(max(aux))
-'''
+def new_order(table_id):
+    aux = list()
+    for order_id in data.orders:
+        aux.append(int(order_id))
+    aux = str(max(aux) + 1)
+    data.orders[aux] = dict()
+    data.orders[aux]["date_time"] = str(datetime.datetime.now())
+    data.orders[aux]["bill_requested"] = False
+    data.orders[aux]["pay_by_card"] = False
+    data.orders[aux]["paid"] = False
+    data.orders[aux]["invoice"] = False
+    data.orders[aux]["table_id"] = table_id
+    return aux
 
 
 def isfloat(value):
@@ -110,8 +125,8 @@ def waiter_table(num):
             elif("order-id" in request.form and "paid" in request.form and
                  request.form["order-id"] in data.orders and request.form["paid"].lower() == "true"):
                 data.orders[request.form["order-id"]]["paid"] = True
-                data.tables[data.orders[request.form["order-id"]]
-                            ["table_id"]]["occupied"] = False
+                change_table_status(
+                    [data.orders[request.form["order-id"]]["table_id"]])
         return render_template("/tables/info.html", title="Mesa "+num,
                                num=num, img_viewer=True, fixed_navbar=True,
                                states=data.order_states,
@@ -167,35 +182,58 @@ def waiter_products():
                            customer=False)
 
 
-@app.route("/waiter/products/menu/list.html")
-def waiter_menu():
-    return "!", 200
-
-
 @app.route("/customer")
 def customer_root():
     return redirect("/customer/home.html")
 
 
-@app.route("/customer/home.html")
+@app.route("/customer/home.html", methods=['GET', 'POST'])
 def customer_home():
-    return render_template("/customer/home.html", title="Cliente",
-                           img_viewer=False, fixed_navbar=False,
-                           customer=True)
+    if(request.method == 'POST' and "table-id" in request.form and request.form["table-id"] in data.tables):
+        return redirect("/customer/tables/" + request.form["table-id"] + "/home.html")
+    else:
+        return render_template("/customer/home.html", title="Cliente",
+                               img_viewer=False, fixed_navbar=False,
+                               customer=True, tables=data.tables)
 
 
-@app.route("/customer/products/list.html", methods=['GET', 'POST'])
-def products_list():
-    for category in data.product_categories:
-        if(category == "drinks"):
-            data.product_categories[category]["active"] = True
-        else:
-            data.product_categories[category]["active"] = False
-    return render_template("/products/list.html", title="Productos",
-                           img_viewer=True, fixed_navbar=True,
-                           categories=data.product_categories,
-                           products=data.products,
-                           customer=True)
+@app.route("/customer/tables/<num>/home.html")
+def customer_table(num):
+    if num in data.tables:
+        return render_template("/tables/home.html", title="Mesa "+num,
+                               img_viewer=False, fixed_navbar=False,
+                               customer=True, tables=data.tables,
+                               num=num)
+    else:
+        abort(404)
+
+
+@app.route("/customer/tables/<num>/edit.html")
+def customer_table_edit(num):
+    if num in data.tables:
+        return render_template("/tables/edit.html", title="Mesa "+num,
+                               img_viewer=False, fixed_navbar=True,
+                               customer=True, tables=data.tables,
+                               num=num)
+    else:
+        abort(404)
+
+
+@app.route("/customer/<num>/products/list.html", methods=['GET', 'POST'])
+def products_list(num):
+    if num in data.orders and not data.orders[num]["paid"]:
+        for category in data.product_categories:
+            if(category == "drinks"):
+                data.product_categories[category]["active"] = True
+            else:
+                data.product_categories[category]["active"] = False
+        return render_template("/products/list.html", title="Productos",
+                               img_viewer=True, fixed_navbar=True,
+                               categories=data.product_categories,
+                               products=data.products,
+                               customer=True, num=num)
+    else:
+        abort(404)
 
 
 if __name__ == "__main__":

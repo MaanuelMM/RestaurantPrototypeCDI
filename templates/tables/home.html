@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="jumbotron text-center bg-dark text-light">
+<div class="jumbotron text-center">
     <div class="container-fluid">
         <div class="row justify-content-between">
             <div class="col">
-                <a href="/index.html" class="mt-auto mb-auto btn btn-lg btn-warning my-2 my-sm-0">
+                <a href="/customer/home.html" class="mt-auto mb-auto btn btn-lg btn-primary my-2 my-sm-0">
                     <h5>Atrás</h5>
                 </a>
             </div>
             <div class="col">
-                <p class="display-4 text-white">{{ title }}</p>
+                <p class="display-4">{{ title }}</p>
             </div>
             <div class="col">
                 <a class="mx-auto navbar-brand my-2 my-sm-0">
@@ -22,24 +22,24 @@
 </div>
 
 <div class="container">
-    <h2 class="text-center"><small>¿A qué función desea acceder como camarero?</small></h2>
+    <h2 class="text-center"><small>Seleccione la opción que más le interese hacer en este momento:</small></h2>
     <div class="row justify-content-center" style="margin-bottom:24px">
         <div class="col-sm-6" style="margin-top:16px; margin-bottom:16px">
-            <a href="/waiter/products/list.html" class="btn btn-warning btn-lg btn-block" role="button">
+            <a href="/customer/tables/{{ num }}/edit.html" class="btn btn-primary btn-lg btn-block" role="button">
                 <p></p>
-                <h3>Administrar productos</h3>
+                <h3>Manipular mesa</h3>
                 <p></p>
             </a>
         </div>
         <div class="col-sm-6" style="margin-top:16px; margin-bottom:16px">
-            <a href="/waiter/tables/list.html" class="btn btn-warning btn-lg btn-block" role="button">
+            <a href="/waiter/tables/list.html" class="btn btn-primary btn-lg btn-block" role="button">
                 <p></p>
                 <h3>Administrar mesas</h3>
                 <p></p>
             </a>
         </div>
         <div class="col-sm-6" style="margin-top:16px; margin-bottom:16px">
-            <a href="/waiter/orders/list.html" class="btn btn-warning btn-lg btn-block" role="button">
+            <a href="/waiter/orders/list.html" class="btn btn-primary btn-lg btn-block" role="button">
                 <p></p>
                 <h3>Historial pedidos</h3>
                 <p></p>
