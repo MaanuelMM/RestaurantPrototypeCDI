@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Authors:      Luis Carles Durá, Jaime García Velázquez, Manuel Martín Malagón, Rafael Rodríguez Sánchez
 # Created:      2019/04/10
-# Last update:  2019/04/18
+# Last update:  2019/04/19
 
 
 import os
@@ -37,6 +37,29 @@ def isfloat(value):
         return False
 
 
+def count_notifications_table():
+    for table_id, table in data.tables.items():
+        count = 0
+        for order_id, order in data.orders.items():
+            if order["table_id"] == table_id:
+                if order["bill_requested"] and not order["paid"]:
+                    count = count + 1
+                for order_record in data.orders_record.values():
+                    if(order_record["order_id"] == order_id and
+                       (order_record["state"] == "pending" or
+                            order_record["state"] == "ear_kitchen")):
+                        count = count + 1
+        table["notifications"] = count
+
+
+def make_active_product_category(active_category):
+    for category in data.product_categories:
+        if(category == active_category):
+            data.product_categories[category]["active"] = True
+        else:
+            data.product_categories[category]["active"] = False
+
+
 @app.route("/favicon.ico")
 def favicon():
     return send_from_directory(os.path.join(app.root_path, "static"),
@@ -55,11 +78,6 @@ def index():
                            customer=True)
 
 
-@app.route("/about.html")
-def about():
-    return "!", 200
-
-
 @app.route("/waiter")
 def waiter_root():
     return redirect("/waiter/home.html")
@@ -74,18 +92,7 @@ def waiter_home():
 
 @app.route("/waiter/tables/list.html")
 def waiter_tables():
-    for table_id, table in data.tables.items():
-        count = 0
-        for order_id, order in data.orders.items():
-            if order["table_id"] == table_id:
-                if order["bill_requested"] and not order["paid"]:
-                    count = count + 1
-                for order_record in data.orders_record.values():
-                    if(order_record["order_id"] == order_id and
-                       (order_record["state"] == "pending" or
-                            order_record["state"] == "ear_kitchen")):
-                        count = count + 1
-        table["notifications"] = count
+    count_notifications_table()
     return render_template("/tables/list.html", title="Mesas",
                            img_viewer=False, fixed_navbar=True,
                            tables=data.tables, customer=False)
@@ -150,17 +157,9 @@ def waiter_products():
             data.products[request.form["product-id"]
                           ]["available"] = not data.products[request.form["product-id"]
                                                              ]["available"]
-        for category in data.product_categories:
-            if(category == request.form["current-category"]):
-                data.product_categories[category]["active"] = True
-            else:
-                data.product_categories[category]["active"] = False
+        make_active_product_category(request.form["current-category"])
     else:
-        for category in data.product_categories:
-            if(category == "drinks"):
-                data.product_categories[category]["active"] = True
-            else:
-                data.product_categories[category]["active"] = False
+        make_active_product_category("drinks")
     return render_template("/products/list.html", title="Productos",
                            img_viewer=True, fixed_navbar=True,
                            categories=data.product_categories,
