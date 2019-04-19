@@ -5,7 +5,7 @@
     role="navigation" id="main-navbar">
     <div class="container-fluid">
         <a href="/{% if customer %}customer{% else %}waiter{% endif %}/home.html"
-            class="mt-auto mb-auto btn btn-{% if customer %}primary{% else %}warning{% endif %} my-2 my-sm-0"
+            class="mt-auto mb-auto btn btn-{% if customer %}success{% else %}warning{% endif %} my-2 my-sm-0"
             style="margin-right:16px">
             <h5>Atrás</h5>
         </a>
@@ -18,7 +18,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive"
             style="overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;">
-            <ul class="nav nav-pills ml-auto{% if not customer %} warning{% endif %}" id="categoryFood" role="tablist"
+            <ul class="nav nav-pills ml-auto {% if customer %}success{% else %}warning{% endif %}" id="categoryFood" role="tablist"
                 style="overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;">
                 {% for category_item, category in categories.items() %}
                 <li class="m-auto nav-item">
@@ -57,10 +57,10 @@
                                 <input type="hidden" name="current-category" value="{{ product.category }}">
                                 <input type="hidden" name="product-id" value="{{ product_id }}">
                                 <input type="hidden" name="order-id" value="{{ num }}">
-                                <button type="submit" class="mt-auto btn btn-primary btn-block">Añadir</button>
+                                <button type="submit" class="mt-auto btn btn-success btn-block">Añadir</button>
                             </form>
                             {% else %}
-                            <a class="mt-auto btn btn-outline-primary disabled" disabled>No disponible</a>
+                            <a class="mt-auto btn btn-outline-success disabled" disabled>No disponible</a>
                             {% endif %}
                             {% else %}
                             <form action="/waiter/products/list.html" method="POST">
