@@ -14,21 +14,119 @@
 </nav>
 
 <div class="container-fluid">
-    <div class="row justify-content-center" style="margin-bottom:24px">
-        <div class="col-xl-9" style="margin-top:16px; margin-bottom:16px">
-            <a href="#" class="btn btn-success btn-lg btn-block" role="button">
-                <p></p>
-                <h3>Zona de calor</h3>
-                <p></p>
-            </a>
+    <div class="m-3 row" style="margin-bottom:24px">
+        <div class="col-lg-9">
+            <div class="card bg-light" style="height: 100%;">
+                <div class="card-header">
+                    <h3 class="text-center">ZONAS CALIENTES</h3>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-lg-6">
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="/customer/tables/{{ num }}/edit.html" method="POST">
+                                        <input type="hidden" name="first_heath_section">
+                                        <button type="submit"
+                                            class="mx-auto btn btn-{% if tables[num]['first_heath_section'] %}danger{% else %}primary{% endif %} btn-lg btn-block">
+                                            <p class="display-1">#1</p>
+                                            <p><b>{% if tables[num]['first_heath_section'] %}&#128293; ENCENDIDO
+                                                    &#128293;{% else %}&#10052; APAGADO &#10052;{% endif %}</b></p>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="/customer/tables/{{ num }}/edit.html" method="POST">
+                                        <input type="hidden" name="second_heath_section">
+                                        <button type="submit"
+                                            class="mx-auto btn btn-{% if tables[num]['second_heath_section'] %}danger{% else %}primary{% endif %} btn-lg btn-block">
+                                            <p class="display-1">#2</p>
+                                            <p><b>{% if tables[num]['second_heath_section'] %}&#128293; ENCENDIDO
+                                                    &#128293;{% else %}&#10052; APAGADO &#10052;{% endif %}</b></p>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="/customer/tables/{{ num }}/edit.html" method="POST">
+                                        <input type="hidden" name="third_heath_section">
+                                        <button type="submit"
+                                            class="mx-auto btn btn-{% if tables[num]['third_heath_section'] %}danger{% else %}primary{% endif %} btn-lg btn-block">
+                                            <p class="display-1">#3</p>
+                                            <p><b>{% if tables[num]['third_heath_section'] %}&#128293; ENCENDIDO
+                                                    &#128293;{% else %}&#10052; APAGADO &#10052;{% endif %}</b></p>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="/customer/tables/{{ num }}/edit.html" method="POST">
+                                        <input type="hidden" name="fourth_heath_section">
+                                        <button type="submit"
+                                            class="mx-auto btn btn-{% if tables[num]['fourth_heath_section'] %}danger{% else %}primary{% endif %} btn-lg btn-block">
+                                            <p class="display-1">#4</p>
+                                            <p><b>{% if tables[num]['fourth_heath_section'] %}&#128293; ENCENDIDO
+                                                    &#128293;{% else %}&#10052; APAGADO &#10052;{% endif %}</b></p>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-xl-3" style="margin-top:16px; margin-bottom:16px">
-            <a href="#" class="btn btn-success btn-lg btn-block" role="button">
-                <p></p>
-                <h3>Altura</h3>
-                <p></p>
-            </a>
+        <div class="col-lg-3">
+            <div class="card bg-light" style="height: 100%;">
+                <div class="card-header">
+                    <h3 class="text-center">ALTURA MESA</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/customer/tables/{{ num }}/edit.html" method="POST">
+                        <input type="hidden" name="height" value="up">
+                        <button type="submit" class="mx-auto btn btn-success btn-lg btn-block" style="height: 100%;"
+                            {% if tables[num]['relative_height'] == 100 %} disabled{% endif %}>
+                            <p class="display-2">&xwedge;</p>
+                            <p><b>SUBIR</b></p>
+                        </button>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <form action="/customer/tables/{{ num }}/edit.html" method="POST">
+                        <input type="hidden" name="height" value="down">
+                        <button type="submit" class="mx-auto btn btn-success btn-lg btn-block" style="height: 100%;"
+                            {% if tables[num]['relative_height'] == 0 %} disabled{% endif %}>
+                            <p class="display-2">&xvee;</p>
+                            <p><b>BAJAR</b></p>
+                        </button>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <div class="card" style="height: 100%;">
+                        <p></p>
+                        <h4 class="m-auto text-center">Altura: {{ tables[num]["relative_height"] }}%</h4>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}

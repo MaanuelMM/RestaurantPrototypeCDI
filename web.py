@@ -22,7 +22,7 @@ app = Flask(__name__)
 
 def change_table_status(table_id):
     data.tables["table_id"]["occupied"] = not data.tables["table_id"]["occupied"]
-    data.tables["table_id"]["relative_height"] = 0
+    data.tables["table_id"]["relative_height"] = 50
     data.tables["table_id"]["first_heath_section"] = False
     data.tables["table_id"]["second_heath_section"] = False
     data.tables["table_id"]["third_heath_section"] = False
@@ -208,9 +208,23 @@ def customer_table(num):
         abort(404)
 
 
-@app.route("/customer/tables/<num>/edit.html")
+@app.route("/customer/tables/<num>/edit.html", methods=['GET', 'POST'])
 def customer_table_edit(num):
     if num in data.tables:
+        if request.method == 'POST':
+            if "height" in request.form:
+                if request.form["height"] == "up" and data.tables[num]["relative_height"] != 100:
+                    data.tables[num]["relative_height"] = data.tables[num]["relative_height"] + 10
+                elif request.form["height"] == "down" and data.tables[num]["relative_height"] != 0:
+                    data.tables[num]["relative_height"] = data.tables[num]["relative_height"] - 10
+            elif "first_heath_section" in request.form:
+                data.tables[num]["first_heath_section"] = not data.tables[num]["first_heath_section"]
+            elif "second_heath_section" in request.form:
+                data.tables[num]["second_heath_section"] = not data.tables[num]["second_heath_section"]
+            elif "third_heath_section" in request.form:
+                data.tables[num]["third_heath_section"] = not data.tables[num]["third_heath_section"]
+            elif "fourth_heath_section" in request.form:
+                data.tables[num]["fourth_heath_section"] = not data.tables[num]["fourth_heath_section"]
         return render_template("/tables/edit.html", title="Mesa "+num,
                                img_viewer=False, fixed_navbar=True,
                                customer=True, tables=data.tables,
