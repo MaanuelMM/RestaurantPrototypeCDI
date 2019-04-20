@@ -24,15 +24,16 @@
     <div class="alert alert-warning">
         <div class="row">
             <div class="col-xl-9" style="margin-bottom:8px;margin-top:8px;">
-                <strong>¡Cuenta pedida!</strong> El cliente con el pedido #{{ order_id }} realizará el pago con
-                <strong>{% if order.pay_by_card %}TARJETA{% else %}EFECTIVO{% endif %}</strong>.{% if order.invoice %}
-                Además, ha solicitado <strong>FACTURA</strong>.{% endif %}
+                <strong>¡Cuenta pedida!</strong> Se ha solicitado la cuenta para el pedido #{{ order_id }}, cuyo pago se
+                realizará con <strong>{% if order.pay_by_card %}TARJETA{% else %}EFECTIVO{% endif %}</strong>.
+                {% if order.invoice %}Además,
+                se ha solicitado <strong>FACTURA</strong>.{% endif %}
             </div>
             <div class="col-xl-3">
-                <form action="/waiter/tables/{{ num }}/info.html" method="POST" class="m-auto">
+                <form action="/waiter/tables/{{ num }}/info.html" method="POST" style="height: 100%;">
                     <input type="hidden" name="order-id" value="{{ order_id }}">
                     <input type="hidden" name="paid" value="True">
-                    <button type="submit" class="btn btn-warning btn-block">Pagado</button>
+                    <button type="submit" class="btn btn-warning btn-block" style="height: 100%;">Pagado</button>
                 </form>
             </div>
         </div>
@@ -49,7 +50,7 @@
                 <div class="d-flex flex-column card-body bg-light text-dark">
                     <h3 class="text-center" style="margin-bottom:16px;">{{ state.name }}</h3>
                     {% for order_id, order in orders.items() %}
-                    {% if order.table_id == num %}
+                    {% if order.table_id == num and not order.paid %}
                     {% for order_record_id, order_record in orders_record.items() %}
                     {% if order_record.order_id == order_id and order_record.state == state_item %}
                     <div class="card mb-3">

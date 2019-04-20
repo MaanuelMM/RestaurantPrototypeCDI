@@ -20,7 +20,7 @@
         "bill_requested": true,
         "pay_by_card": false,
         "paid": false,
-        "invoice": false,
+        "invoice": true,
         "table_id": "1"
     },
     "4": {

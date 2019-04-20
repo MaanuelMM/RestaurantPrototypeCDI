@@ -21,12 +21,12 @@ app = Flask(__name__)
 
 
 def change_table_status(table_id):
-    data.tables["table_id"]["occupied"] = not data.tables["table_id"]["occupied"]
-    data.tables["table_id"]["relative_height"] = 50
-    data.tables["table_id"]["first_heath_section"] = False
-    data.tables["table_id"]["second_heath_section"] = False
-    data.tables["table_id"]["third_heath_section"] = False
-    data.tables["table_id"]["fourth_heath_section"] = False
+    data.tables[table_id]["occupied"] = not data.tables[table_id]["occupied"]
+    data.tables[table_id]["relative_height"] = 50
+    data.tables[table_id]["first_heath_section"] = False
+    data.tables[table_id]["second_heath_section"] = False
+    data.tables[table_id]["third_heath_section"] = False
+    data.tables[table_id]["fourth_heath_section"] = False
 
 
 def new_order(table_id):
@@ -126,7 +126,7 @@ def waiter_table(num):
                  request.form["order-id"] in data.orders and request.form["paid"].lower() == "true"):
                 data.orders[request.form["order-id"]]["paid"] = True
                 change_table_status(
-                    [data.orders[request.form["order-id"]]["table_id"]])
+                    data.orders[request.form["order-id"]]["table_id"])
         return render_template("/tables/info.html", title="Mesa "+num,
                                num=num, img_viewer=True, fixed_navbar=True,
                                states=data.order_states,
