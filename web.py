@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Authors:      Luis Carles Durá, Jaime García Velázquez, Manuel Martín Malagón, Rafael Rodríguez Sánchez
 # Created:      2019/04/10
-# Last update:  2019/04/19
+# Last update:  2019/04/20
 
 
 import os
@@ -229,6 +229,22 @@ def customer_table_edit(num):
                                img_viewer=False, fixed_navbar=True,
                                customer=True, tables=data.tables,
                                num=num)
+    else:
+        abort(404)
+
+
+@app.route("/customer/tables/<num>/info.html")
+def customer_table_info(num):
+    if num in data.tables:
+        return render_template("/tables/info.html", title="Mesa "+num,
+                               num=num, img_viewer=True, fixed_navbar=True,
+                               states=data.order_states,
+                               orders=collections.OrderedDict(
+                                   reversed(list(data.orders.items()))),
+                               orders_record=collections.OrderedDict(
+                                   reversed(list(data.orders_record.items()))),
+                               products=data.products,
+                               customer=True)
     else:
         abort(404)
 

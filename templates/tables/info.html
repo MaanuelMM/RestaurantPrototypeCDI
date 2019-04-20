@@ -2,12 +2,14 @@
 
 {% block content %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation" id="main-navbar">
+<nav class="navbar navbar-expand-lg {% if customer %}navbar-light bg-light{% else %}navbar-dark bg-dark{% endif %} fixed-top"
+    role="navigation" id="main-navbar">
     <div class="container-fluid">
-        <a href="/waiter/tables/list.html" class="mt-auto mb-auto btn btn-warning my-2 my-sm-0">
+        <a href="{% if customer %}/customer/tables/{{ num }}/home.html{% else %}/waiter/tables/list.html{% endif %}"
+            class="mt-auto mb-auto btn btn-{% if customer %}success{% else %}warning{% endif %} my-2 my-sm-0">
             <h5>Atrás</h5>
         </a>
-        <p class="display-4 text-white">{{ title }}</p>
+        <p class="display-4{% if not customer %} text-white{% endif %}">{{ title }}</p>
         <a class="mt-auto navbar-brand my-2 my-sm-0">
             <img src="/static/favicon.svg" alt="logo" style="width:64px">
         </a>
@@ -15,20 +17,22 @@
 </nav>
 
 <div class="container-fluid">
-    <a href="/waiter/tables/{{ num }}/info.html" class="mt-auto mb-4 btn btn-warning btn-block">Actualizar</a>
+    <a href="/{% if customer %}customer{% else %}waiter{% endif %}/tables/{{ num }}/info.html"
+        class="mt-auto mb-4 btn btn-{% if customer %}success{% else %}warning{% endif %} btn-block">Actualizar</a>
 </div>
 
 {% for order_id, order in orders.items() %}
 {% if order.table_id == num and order.bill_requested and not order.paid %}
 <div class="container-fluid">
-    <div class="alert alert-warning">
+    <div class="alert alert-{% if customer %}success{% else %}warning{% endif %}">
         <div class="row">
-            <div class="col-xl-9" style="margin-bottom:8px;margin-top:8px;">
+            <div class="col{% if not customer %}-xl-9{% endif %}" style="margin-bottom:8px;margin-top:8px;">
                 <strong>¡Cuenta pedida!</strong> Se ha solicitado la cuenta para el pedido #{{ order_id }}, cuyo pago se
                 realizará con <strong>{% if order.pay_by_card %}TARJETA{% else %}EFECTIVO{% endif %}</strong>.
                 {% if order.invoice %}Además,
                 se ha solicitado <strong>FACTURA</strong>.{% endif %}
             </div>
+            {% if not customer %}
             <div class="col-xl-3">
                 <form action="/waiter/tables/{{ num }}/info.html" method="POST" style="height: 100%;">
                     <input type="hidden" name="order-id" value="{{ order_id }}">
@@ -36,6 +40,7 @@
                     <button type="submit" class="btn btn-warning btn-block" style="height: 100%;">Pagado</button>
                 </form>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -68,6 +73,7 @@
                                     </p>
                                 </div>
                             </div>
+                            {% if not customer %}
                             {% if state_item == "pending" or state_item == "ear_kitchen" %}
                             <div class="pb-3 container-fluid">
                                 <div class="row">
@@ -89,6 +95,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {% endif %}
                             {% endif %}
                         </div>
                     </div>
