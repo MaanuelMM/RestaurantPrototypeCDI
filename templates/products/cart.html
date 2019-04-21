@@ -1,4 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" role="navigation" id="main-navbar">
+    <div class="container-fluid">
+        <a href="/customer/tables/{{ num }}/products/list.html" class="mt-auto mb-auto btn btn-success my-2 my-sm-0">
+            <h5>Atrás</h5>
+        </a>
+        <p class="display-4">{{ title }}</p>
+        <a class="mt-auto navbar-brand my-2 my-sm-0">
+            <img src="/static/favicon.svg" alt="logo" style="width:64px">
+        </a>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom" role="navigation" id="secondary-navbar">
+    <div class="mx-auto row" style="width:100%;margin-bottom:16px;margin-top:16px;">
+        <div class="m-auto col-xl-2">
+            <a class="mt-auto btn btn-danger btn-lg btn-block my-2 my-sm-0" href="#">Cancelar
+            </a>
+        </div>
+        <div class="m-auto col-xl-8">
+            <h2 class="text-center" style="margin-bottom:16px;margin-top:8px;">Total:
+                {{ '%.2f' | format(orders[order_id]['total']) }} euros</h2>
+        </div>
+        <div class="m-auto col-xl-2">
+            <a class="mt-auto btn btn-primary btn-lg btn-block my-2 my-sm-0" href="#">Confirmar
+            </a>
+        </div>
+    </div>
+</nav>
+
 {% endblock %}

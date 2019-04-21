@@ -20,6 +20,16 @@ except:
 app = Flask(__name__)
 
 
+def table_is_occupied(table_id):
+    latest_order_id = order_get_latest(table_id)
+    data.tables[table_id]["occupied"] = order_is_valid(latest_order_id)
+
+
+def tables_is_occupied():
+    for table_id in data.tables:
+        table_is_occupied(table_id)
+
+
 def order_is_valid(order_id):
     # an order is valid if exists any order_record which state is "pending",
     # "ear_kitchen" or "delivered", and it's not being paid before
@@ -51,6 +61,19 @@ def order_get_latest(table_id):
     return latest_order_id
 
 
+def order_total_price(order_id, with_cart=False):
+    total = 0.0
+
+    for order_record in data.orders_record.values():
+        if order_record["order_id"] == order_id:
+            if order_record["state"] != "cancelled" and order_record["state"] in data.order_states:
+                total = total + order_record["product_price"]
+            elif with_cart and order_record["state"] == "cart":
+                total = total + order_record["product_price"]
+
+    return total
+
+
 def orders_total_price():
     for order in data.orders.values():
         order["total"] = 0.0
@@ -60,8 +83,7 @@ def orders_total_price():
                                                                          ]["total"] + order_record["product_price"]
 
 
-def table_change_status(table_id):
-    data.tables[table_id]["occupied"] = not data.tables[table_id]["occupied"]
+def table_reset_parameters(table_id):
     data.tables[table_id]["relative_height"] = 50
     data.tables[table_id]["first_heath_section"] = False
     data.tables[table_id]["second_heath_section"] = False
@@ -103,10 +125,9 @@ def cancel_cart_order_records(order_id):
 
 
 def new_order_record(order_id, product_id):
-    # busca la order_id activa para la mesa
     aux = list()
 
-    for order_record_id in data.orders:
+    for order_record_id in data.orders_record:
         aux.append(int(order_record_id))
 
     new_order_record_id = str(max(aux) + 1)
@@ -114,10 +135,10 @@ def new_order_record(order_id, product_id):
     del aux
 
     data.orders_record[new_order_record_id] = dict()
-    data.orders[new_order_record_id]["order_id"] = order_id
-    data.orders[new_order_record_id]["product_id"] = product_id
-    data.orders[new_order_record_id]["product_price"] = data.products[product_id]["price"]
-    data.orders[new_order_record_id]["state"] = "cart"
+    data.orders_record[new_order_record_id]["order_id"] = order_id
+    data.orders_record[new_order_record_id]["product_id"] = product_id
+    data.orders_record[new_order_record_id]["product_price"] = data.products[product_id]["price"]
+    data.orders_record[new_order_record_id]["state"] = "cart"
 
     return new_order_record_id
 
@@ -133,15 +154,15 @@ def isfloat(value):
 def tables_count_notifications():
     for table_id, table in data.tables.items():
         count = 0
-        for order_id, order in data.orders.items():
-            if order["table_id"] == table_id:
-                if order["bill_requested"] and not order["paid"]:
+        order_id = order_get_latest(table_id)
+        if order_is_valid(order_id):
+            if data.orders[order_id]["bill_requested"]:
+                count = count + 1
+            for order_record in data.orders_record.values():
+                if(order_record["order_id"] == order_id and
+                    (order_record["state"] == "pending" or
+                        order_record["state"] == "ear_kitchen")):
                     count = count + 1
-                for order_record in data.orders_record.values():
-                    if(order_record["order_id"] == order_id and
-                       (order_record["state"] == "pending" or
-                            order_record["state"] == "ear_kitchen")):
-                        count = count + 1
         table["notifications"] = count
 
 
@@ -186,6 +207,7 @@ def waiter_home():
 @app.route("/waiter/tables/list.html")
 def waiter_tables():
     tables_count_notifications()
+    tables_is_occupied()
     return render_template("/tables/list.html", title="Mesas",
                            img_viewer=False, fixed_navbar=True,
                            tables=data.tables, customer=False)
@@ -203,16 +225,16 @@ def waiter_table(num):
             elif("order-id" in request.form and "paid" in request.form
                     and request.form["order-id"] in data.orders):
                 data.orders[request.form["order-id"]]["paid"] = True
-                table_change_status(
+                table_reset_parameters(
                     data.orders[request.form["order-id"]]["table_id"])
         latest_order_id = order_get_latest(num)
-        is_valid = order_is_valid(latest_order_id)
+        table_is_occupied(num)
         return render_template("/tables/info.html", title="Mesa "+num,
                                num=num, img_viewer=True, fixed_navbar=True,
                                orders_record=collections.OrderedDict(
                                    reversed(list(data.orders_record.items()))),
                                states=data.order_states, orders=data.orders,
-                               products=data.products, is_valid=is_valid,
+                               tables=data.tables, products=data.products,
                                latest_order_id=latest_order_id,
                                customer=False)
     else:
@@ -275,13 +297,12 @@ def customer_home():
 def customer_table(num):
     if num in data.tables:
         latest_order_id = order_get_latest(num)
-        is_valid = order_is_valid(latest_order_id)
+        table_is_occupied(num)
         return render_template("/tables/home.html", title="Mesa "+num,
                                img_viewer=False, fixed_navbar=False,
                                customer=True, tables=data.tables,
                                latest_order_id=latest_order_id,
-                               orders=data.orders, num=num,
-                               is_valid=is_valid)
+                               orders=data.orders, num=num)
     else:
         abort(404)
 
@@ -315,13 +336,13 @@ def customer_table_edit(num):
 def customer_table_info(num):
     if num in data.tables:
         latest_order_id = order_get_latest(num)
-        is_valid = order_is_valid(latest_order_id)
+        table_is_occupied(num)
         return render_template("/tables/info.html", title="Mesa "+num,
                                num=num, img_viewer=True, fixed_navbar=True,
                                orders_record=collections.OrderedDict(
                                    reversed(list(data.orders_record.items()))),
                                states=data.order_states, orders=data.orders,
-                               products=data.products, is_valid=is_valid,
+                               tables=data.tables, products=data.products,
                                latest_order_id=latest_order_id,
                                customer=True)
     else:
@@ -331,7 +352,11 @@ def customer_table_info(num):
 @app.route("/customer/tables/<num>/products/list.html", methods=['GET', 'POST'])
 def customer_products_list(num):
     if num in data.tables:
-        orders_total_price()
+        latest_order_id = order_get_latest(num)
+        if data.orders[latest_order_id]["paid"]:
+            latest_order_id = new_order(num)
+            data.tables[num]["occupied"] = True
+        order_total_price(latest_order_id, True)
         make_active_product_category()
         return render_template("/products/list.html", title="Carta",
                                img_viewer=True, fixed_navbar=True,
@@ -346,9 +371,12 @@ def customer_products_list(num):
 @app.route("/customer/tables/<num>/products/cart.html", methods=['GET', 'POST'])
 def customer_products_cart(num):
     if num in data.tables:
-        orders_total_price()
-        make_active_product_category()
-        return render_template("/products/list.html", title="Carta",
+        latest_order_id = order_get_latest(num)
+        if data.orders[latest_order_id]["paid"]:
+            latest_order_id = new_order(num)
+            data.tables[num]["occupied"] = True
+        order_total_price(latest_order_id, True)
+        return render_template("/products/cart.html", title="Carrito",
                                img_viewer=True, fixed_navbar=True,
                                num=num, orders=data.orders,
                                categories=data.product_categories,

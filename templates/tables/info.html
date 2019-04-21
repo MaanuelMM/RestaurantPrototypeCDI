@@ -21,7 +21,7 @@
         class="mt-auto mb-4 btn btn-{% if customer %}success{% else %}warning{% endif %} btn-block">Actualizar</a>
 </div>
 
-{% if is_valid and orders[latest_order_id]["bill_requested"] %}
+{% if tables[num]["occupied"] and orders[latest_order_id]["bill_requested"] %}
 <div class="container-fluid">
     <div class="alert alert-{% if customer %}success{% else %}warning{% endif %}">
         <div class="row">
@@ -52,7 +52,7 @@
             <div class="card" style="margin:8px">
                 <div class="d-flex flex-column card-body bg-light text-dark">
                     <h3 class="text-center" style="margin-bottom:16px;">{{ state.name }}</h3>
-                    {% if is_valid %}
+                    {% if tables[num]["occupied"] %}
                     {% for order_record_id, order_record in orders_record.items() %}
                     {% if order_record.order_id == latest_order_id and order_record.state == state_item %}
                     <div class="card mb-3">
