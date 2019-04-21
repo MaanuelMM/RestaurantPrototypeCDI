@@ -574,5 +574,29 @@
         "price": 1.75,
         "available": true,
         "category": "drinks"
+    },
+    "73": {
+        "name": "Menú Vegano",
+        "description": "Menú sin una traza de carácter animal. Disfruta la sopa de coles de la casa y las maravillosas acelgas con patatas reogadas a la Tía Mildred",
+        "pathImage": "/static/products/mensu/vegano.png",
+        "price": 15.75,
+        "available": true,
+        "category": "menus"
+    },
+    "74": {
+        "name": "Menú Vegetarino",
+        "description": "Menú sin carnes ni pescados. Disfruta la ensalada tradicional con huevos cocidos y las fajitas de verduras",
+        "pathImage": "/static/products/menus/vegetariano.png",
+        "price": 15.75,
+        "available": true,
+        "category": "menus"
+    },
+    "75": {
+        "name": "Menú sin Gluten",
+        "description": "Menú sin trazas de gluten. Disfruta el filete de ternera con verduras cocidas y nuestra sopa de pollo",
+        "pathImage": "/static/products/menus/singluten.png",
+        "price": 15.75,
+        "available": true,
+        "category": "menus"
     }
 }
