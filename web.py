@@ -43,6 +43,18 @@ def new_order(table_id):
     data.orders[aux]["table_id"] = table_id
     return aux
 
+def new_order_record(table_id, product_id, product_price):
+    #busca la order_id activa para la mesa
+    aux = list()
+    for orders_record_id in data.orders_record:
+        aux.append(int(orders_record_id))
+    aux = str(max(aux) + 1)
+    data.orders[aux] = dict()
+    data.orders[aux]["order_id"] = order_id
+    data.orders[aux]["product_id"] = product_id
+    data.orders[aux]["product_price"] = product_price
+    data.orders[aux]["state"] = "pending"
+    return aux
 
 def isfloat(value):
     try:
@@ -235,6 +247,8 @@ def customer_table_edit(num):
 
 @app.route("/customer/tables/<num>/info.html")
 def customer_table_info(num):
+    #busca la order_id activa para la mesa
+    paid=data.orders[order_id]["bill_requested"]
     if num in data.tables:
         return render_template("/tables/info.html", title="Mesa "+num,
                                num=num, img_viewer=True, fixed_navbar=True,
@@ -244,14 +258,14 @@ def customer_table_info(num):
                                orders_record=collections.OrderedDict(
                                    reversed(list(data.orders_record.items()))),
                                products=data.products,
-                               customer=True)
+                               customer=True, paid=paid)
     else:
         abort(404)
 
 
 @app.route("/customer/<num>/products/list.html", methods=['GET', 'POST'])
 def products_list(num):
-    if num in data.orders and not data.orders[num]["paid"]:
+    if num in data.tables:
         for category in data.product_categories:
             if(category == "drinks"):
                 data.product_categories[category]["active"] = True

@@ -4,7 +4,7 @@
 <nav class="navbar navbar-expand-lg {% if customer %}navbar-light bg-light{% else %}navbar-dark bg-dark{% endif %} fixed-top"
     role="navigation" id="main-navbar">
     <div class="container-fluid">
-        <a href="/{% if customer %}customer{% else %}waiter{% endif %}/home.html"
+        <a href="/{% if customer %}customer/tables/{{num}}/info.html{% else %}waiter/home.html{% endif %}"
             class="mt-auto mb-auto btn btn-{% if customer %}success{% else %}warning{% endif %} my-2 my-sm-0"
             style="margin-right:16px">
             <h5>Atrás</h5>
@@ -58,6 +58,7 @@
                                 <input type="hidden" name="product-id" value="{{ product_id }}">
                                 <input type="hidden" name="order-id" value="{{ num }}">
                                 <button type="submit" class="mt-auto btn btn-success btn-block">Añadir</button>
+                                <!-- que el boton añadir haga un new_order_record(num, product_id, product_price) -->                                
                             </form>
                             {% else %}
                             <a class="mt-auto btn btn-outline-success disabled" disabled>No disponible</a>

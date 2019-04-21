@@ -21,6 +21,17 @@
         class="mt-auto mb-4 btn btn-{% if customer %}success{% else %}warning{% endif %} btn-block">Actualizar</a>
 </div>
 
+{% if customer %}
+    {% if not paid %}
+        <a class="mt-auto mb-4 btn btn-outline-success disabled btn-block" disabled>Cobro solicitado. ¡Gracias por su visita!</a>
+    {% else %}
+        <div class="container-fluid">
+            <a href="/customer/{{ num }}/products/list.html"
+                class="mt-auto mb-4 btn btn-{% if customer %}success{% else %}warning{% endif %} btn-block">Nuevo Pedido</a>
+        </div>
+    {% endif %}
+{% endif %}
+
 {% for order_id, order in orders.items() %}
 {% if order.table_id == num and order.bill_requested and not order.paid %}
 <div class="container-fluid">
