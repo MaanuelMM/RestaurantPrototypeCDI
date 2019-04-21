@@ -90,6 +90,38 @@ def new_order(table_id):
     return new_order_id
 
 
+def confirm_cart_order_records(order_id):
+    for order_record_id, order_record in data.orders.items():
+        if order_record["order_id"] == order_id and data.orders[order_record_id]["state"] == "cart":
+            data.orders[order_record_id]["state"] = "pending"
+
+
+def cancel_cart_order_records(order_id):
+    for order_record_id, order_record in data.orders.items():
+        if order_record["order_id"] == order_id and data.orders[order_record_id]["state"] == "cart":
+            del data.orders_record[order_record_id]
+
+
+def new_order_record(order_id, product_id):
+    # busca la order_id activa para la mesa
+    aux = list()
+
+    for order_record_id in data.orders:
+        aux.append(int(order_record_id))
+
+    new_order_record_id = str(max(aux) + 1)
+
+    del aux
+
+    data.orders_record[new_order_record_id] = dict()
+    data.orders[new_order_record_id]["order_id"] = order_id
+    data.orders[new_order_record_id]["product_id"] = product_id
+    data.orders[new_order_record_id]["product_price"] = data.products[product_id]["price"]
+    data.orders[new_order_record_id]["state"] = "cart"
+
+    return new_order_record_id
+
+
 def isfloat(value):
     try:
         float(value)
@@ -177,11 +209,9 @@ def waiter_table(num):
         is_valid = order_is_valid(latest_order_id)
         return render_template("/tables/info.html", title="Mesa "+num,
                                num=num, img_viewer=True, fixed_navbar=True,
-                               states=data.order_states,
-                               orders=collections.OrderedDict(
-                                   reversed(list(data.orders.items()))),
                                orders_record=collections.OrderedDict(
                                    reversed(list(data.orders_record.items()))),
+                               states=data.order_states, orders=data.orders,
                                products=data.products, is_valid=is_valid,
                                latest_order_id=latest_order_id,
                                customer=False)
@@ -288,11 +318,9 @@ def customer_table_info(num):
         is_valid = order_is_valid(latest_order_id)
         return render_template("/tables/info.html", title="Mesa "+num,
                                num=num, img_viewer=True, fixed_navbar=True,
-                               states=data.order_states,
-                               orders=collections.OrderedDict(
-                                   reversed(list(data.orders.items()))),
                                orders_record=collections.OrderedDict(
                                    reversed(list(data.orders_record.items()))),
+                               states=data.order_states, orders=data.orders,
                                products=data.products, is_valid=is_valid,
                                latest_order_id=latest_order_id,
                                customer=True)

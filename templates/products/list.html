@@ -63,6 +63,7 @@
                                 <input type="hidden" name="product-id" value="{{ product_id }}">
                                 <input type="hidden" name="order-id" value="{{ order_id }}">
                                 <button type="submit" class="mt-auto btn btn-success btn-block">Añadir</button>
+                                <!-- que el boton añadir haga un new_order_record(num, product_id, product_price) -->
                             </form>
                             {% else %}
                             <a class="mt-auto btn btn-outline-success disabled" disabled>No disponible</a>
