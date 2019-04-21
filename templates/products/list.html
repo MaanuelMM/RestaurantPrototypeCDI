@@ -4,14 +4,19 @@
 <nav class="navbar navbar-expand-lg {% if customer %}navbar-light bg-light{% else %}navbar-dark bg-dark{% endif %} fixed-top"
     role="navigation" id="main-navbar">
     <div class="container-fluid">
-        <a href="/{% if customer %}customer{% else %}waiter{% endif %}/home.html"
-            class="mt-auto mb-auto btn btn-{% if customer %}success{% else %}warning{% endif %} my-2 my-sm-0"
-            style="margin-right:16px">
+        {% if not customer %}
+        <a href="/waiter/home.html" class="mt-auto mb-auto btn btn-warning my-2 my-sm-0" style="margin-right:16px">
             <h5>Atrás</h5>
         </a>
+        {% endif %}
         <a class="navbar-brand">
             <img src="/static/favicon.svg" alt="logo" style="width:64px">
         </a>
+        {% if customer %}
+        <a class="navbar-item">
+            <p class="display-4">{{ title }}</p>
+        </a>
+        {% endif %}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -56,7 +61,7 @@
                             <form action="/customer/{{ num }}/products/list.html" method="POST">
                                 <input type="hidden" name="current-category" value="{{ product.category }}">
                                 <input type="hidden" name="product-id" value="{{ product_id }}">
-                                <input type="hidden" name="order-id" value="{{ num }}">
+                                <input type="hidden" name="order-id" value="{{ order_id }}">
                                 <button type="submit" class="mt-auto btn btn-success btn-block">Añadir</button>
                             </form>
                             {% else %}
@@ -99,19 +104,23 @@
     </div>
 </div>
 
+{% if customer %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom" role="navigation" id="secondary-navbar">
-    <div class="container-fluid">
-        <ul class="navbar-nav mx-auto flex-row flex-nowrap" style="overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;">
-            <li class="nav-item" style="margin:8px;">
-                <a class="mt-auto btn btn-success my-2 my-sm-0" href="/waiter/tables/{{ table_id }}/info.html">
-                    <h5>Mesa {{ table_id }}</h5>
-                </a>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                    Launch demo modal
-                </button>
-            </li>
-        </ul>
+    <div class="mx-auto row" style="width:100%;margin-bottom:16px;margin-top:16px;">
+        <div class="m-auto col-xl-2">
+            <a class="mt-auto btn btn-danger btn-lg btn-block my-2 my-sm-0" href="#">Cancelar
+            </a>
+        </div>
+        <div class="m-auto col-xl-8">
+            <h2 class="text-center" style="margin-bottom:16px;margin-top:8px;">Total:
+                {{ '%.2f' | format(orders[order_id]['total']) }} euros</h2>
+        </div>
+        <div class="m-auto col-xl-2">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-lg btn-block my-2 my-sm-0" data-toggle="modal"
+                data-target="#exampleModalCenter">Ver carrito
+            </button>
+        </div>
     </div>
 </nav>
 
@@ -137,4 +146,6 @@
         </div>
     </div>
 </div>
+{% endif %}
+
 {% endblock %}

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Authors:      Luis Carles Durá, Jaime García Velázquez, Manuel Martín Malagón, Rafael Rodríguez Sánchez
 # Created:      2019/04/10
-# Last update:  2019/04/20
+# Last update:  2019/04/21
 
 
 import os
@@ -20,7 +20,47 @@ except:
 app = Flask(__name__)
 
 
-def change_table_status(table_id):
+def order_is_valid(order_id):
+    # an order is valid if exists any order_record which state is "pending",
+    # "ear_kitchen" or "delivered", and it's not being paid before
+
+    is_valid = False
+
+    if order_id and not data.orders[order_id]["paid"]:
+        for order_record in data.orders_record.values():
+            if(order_record["order_id"] == order_id and
+                    order_record["state"] != "cancelled" and
+                    order_record["state"] in data.order_states):
+                is_valid = True
+                break
+
+    return is_valid
+
+
+def order_get_latest(table_id):
+    # data.orders is a dict that is ordered from old to new, so all
+    # we have to do is to reverse it to get the latest known order
+
+    latest_order_id = False
+
+    for order_id, order in collections.OrderedDict(reversed(list(data.orders.items()))).items():
+        if order["table_id"] == table_id:
+            latest_order_id = order_id
+            break
+
+    return latest_order_id
+
+
+def orders_total_price():
+    for order in data.orders.values():
+        order["total"] = 0.0
+    for order_record in data.orders_record.values():
+        if(order_record["state"] in data.order_states and order_record["state"] != "cancelled"):
+            data.orders[order_record["order_id"]]["total"] = data.orders[order_record["order_id"]
+                                                                         ]["total"] + order_record["product_price"]
+
+
+def table_change_status(table_id):
     data.tables[table_id]["occupied"] = not data.tables[table_id]["occupied"]
     data.tables[table_id]["relative_height"] = 50
     data.tables[table_id]["first_heath_section"] = False
@@ -31,17 +71,23 @@ def change_table_status(table_id):
 
 def new_order(table_id):
     aux = list()
+
     for order_id in data.orders:
         aux.append(int(order_id))
-    aux = str(max(aux) + 1)
-    data.orders[aux] = dict()
-    data.orders[aux]["date_time"] = str(datetime.datetime.now())
-    data.orders[aux]["bill_requested"] = False
-    data.orders[aux]["pay_by_card"] = False
-    data.orders[aux]["paid"] = False
-    data.orders[aux]["invoice"] = False
-    data.orders[aux]["table_id"] = table_id
-    return aux
+
+    new_order_id = str(max(aux) + 1)
+
+    del aux
+
+    data.orders[new_order_id] = dict()
+    data.orders[new_order_id]["date_time"] = str(datetime.datetime.now())
+    data.orders[new_order_id]["bill_requested"] = False
+    data.orders[new_order_id]["pay_by_card"] = False
+    data.orders[new_order_id]["paid"] = False
+    data.orders[new_order_id]["invoice"] = False
+    data.orders[new_order_id]["table_id"] = table_id
+
+    return new_order_id
 
 
 def isfloat(value):
@@ -52,7 +98,7 @@ def isfloat(value):
         return False
 
 
-def count_notifications_table():
+def tables_count_notifications():
     for table_id, table in data.tables.items():
         count = 0
         for order_id, order in data.orders.items():
@@ -67,7 +113,7 @@ def count_notifications_table():
         table["notifications"] = count
 
 
-def make_active_product_category(active_category):
+def make_active_product_category(active_category="drinks"):
     for category in data.product_categories:
         if(category == active_category):
             data.product_categories[category]["active"] = True
@@ -107,7 +153,7 @@ def waiter_home():
 
 @app.route("/waiter/tables/list.html")
 def waiter_tables():
-    count_notifications_table()
+    tables_count_notifications()
     return render_template("/tables/list.html", title="Mesas",
                            img_viewer=False, fixed_navbar=True,
                            tables=data.tables, customer=False)
@@ -117,16 +163,18 @@ def waiter_tables():
 def waiter_table(num):
     if num in data.tables:
         if request.method == 'POST':
-            if("state" in request.form and "record-id" in request.form and
-               request.form["state"] in data.order_states and
-               request.form["record-id"] in data.orders_record):
+            if("state" in request.form and "record-id" in request.form
+                    and request.form["state"] in data.order_states
+                    and request.form["record-id"] in data.orders_record):
                 data.orders_record[request.form["record-id"]
                                    ]["state"] = request.form["state"]
-            elif("order-id" in request.form and "paid" in request.form and
-                 request.form["order-id"] in data.orders and request.form["paid"].lower() == "true"):
+            elif("order-id" in request.form and "paid" in request.form
+                    and request.form["order-id"] in data.orders):
                 data.orders[request.form["order-id"]]["paid"] = True
-                change_table_status(
+                table_change_status(
                     data.orders[request.form["order-id"]]["table_id"])
+        latest_order_id = order_get_latest(num)
+        is_valid = order_is_valid(latest_order_id)
         return render_template("/tables/info.html", title="Mesa "+num,
                                num=num, img_viewer=True, fixed_navbar=True,
                                states=data.order_states,
@@ -134,7 +182,8 @@ def waiter_table(num):
                                    reversed(list(data.orders.items()))),
                                orders_record=collections.OrderedDict(
                                    reversed(list(data.orders_record.items()))),
-                               products=data.products,
+                               products=data.products, is_valid=is_valid,
+                               latest_order_id=latest_order_id,
                                customer=False)
     else:
         abort(404)
@@ -142,12 +191,7 @@ def waiter_table(num):
 
 @app.route("/waiter/orders/list.html")
 def waiter_orders():
-    for order in data.orders.values():
-        order["total"] = 0.0
-    for order_record in data.orders_record.values():
-        if(order_record["state"] in data.order_states and order_record["state"] != "cancelled"):
-            data.orders[order_record["order_id"]]["total"] = data.orders[order_record["order_id"]
-                                                                         ]["total"] + order_record["product_price"]
+    orders_total_price()
     return render_template("/orders/list.html", title="Pedidos",
                            img_viewer=True, fixed_navbar=True,
                            categories=data.product_categories,
@@ -165,7 +209,7 @@ def waiter_products():
     if(request.method == 'POST' and "current-category" in request.form and
        "product-id" in request.form and request.form["product-id"] in data.products and
        request.form["current-category"] in data.product_categories):
-        if("product-price" in request.form and isfloat(request.form["product-price"])):
+        if "product-price" in request.form and isfloat(request.form["product-price"]):
             data.products[request.form["product-id"]
                           ]["price"] = float(request.form["product-price"])
         else:
@@ -174,8 +218,8 @@ def waiter_products():
                                                              ]["available"]
         make_active_product_category(request.form["current-category"])
     else:
-        make_active_product_category("drinks")
-    return render_template("/products/list.html", title="Productos",
+        make_active_product_category()
+    return render_template("/products/list.html", title="Carta",
                            img_viewer=True, fixed_navbar=True,
                            categories=data.product_categories,
                            products=data.products,
@@ -189,7 +233,7 @@ def customer_root():
 
 @app.route("/customer/home.html", methods=['GET', 'POST'])
 def customer_home():
-    if(request.method == 'POST' and "table-id" in request.form and request.form["table-id"] in data.tables):
+    if request.method == 'POST' and "table-id" in request.form and request.form["table-id"] in data.tables:
         return redirect("/customer/tables/" + request.form["table-id"] + "/home.html")
     else:
         return render_template("/customer/home.html", title="Cliente",
@@ -200,10 +244,14 @@ def customer_home():
 @app.route("/customer/tables/<num>/home.html")
 def customer_table(num):
     if num in data.tables:
+        latest_order_id = order_get_latest(num)
+        is_valid = order_is_valid(latest_order_id)
         return render_template("/tables/home.html", title="Mesa "+num,
                                img_viewer=False, fixed_navbar=False,
                                customer=True, tables=data.tables,
-                               num=num)
+                               latest_order_id=latest_order_id,
+                               orders=data.orders, num=num,
+                               is_valid=is_valid)
     else:
         abort(404)
 
@@ -236,6 +284,8 @@ def customer_table_edit(num):
 @app.route("/customer/tables/<num>/info.html")
 def customer_table_info(num):
     if num in data.tables:
+        latest_order_id = order_get_latest(num)
+        is_valid = order_is_valid(latest_order_id)
         return render_template("/tables/info.html", title="Mesa "+num,
                                num=num, img_viewer=True, fixed_navbar=True,
                                states=data.order_states,
@@ -243,25 +293,39 @@ def customer_table_info(num):
                                    reversed(list(data.orders.items()))),
                                orders_record=collections.OrderedDict(
                                    reversed(list(data.orders_record.items()))),
+                               products=data.products, is_valid=is_valid,
+                               latest_order_id=latest_order_id,
+                               customer=True)
+    else:
+        abort(404)
+
+
+@app.route("/customer/tables/<num>/products/list.html", methods=['GET', 'POST'])
+def customer_products_list(num):
+    if num in data.tables:
+        orders_total_price()
+        make_active_product_category()
+        return render_template("/products/list.html", title="Carta",
+                               img_viewer=True, fixed_navbar=True,
+                               num=num, orders=data.orders,
+                               categories=data.product_categories,
                                products=data.products,
                                customer=True)
     else:
         abort(404)
 
 
-@app.route("/customer/<num>/products/list.html", methods=['GET', 'POST'])
-def products_list(num):
-    if num in data.orders and not data.orders[num]["paid"]:
-        for category in data.product_categories:
-            if(category == "drinks"):
-                data.product_categories[category]["active"] = True
-            else:
-                data.product_categories[category]["active"] = False
-        return render_template("/products/list.html", title="Productos",
+@app.route("/customer/tables/<num>/products/cart.html", methods=['GET', 'POST'])
+def customer_products_cart(num):
+    if num in data.tables:
+        orders_total_price()
+        make_active_product_category()
+        return render_template("/products/list.html", title="Carta",
                                img_viewer=True, fixed_navbar=True,
+                               num=num, orders=data.orders,
                                categories=data.product_categories,
                                products=data.products,
-                               customer=True, num=num)
+                               customer=True)
     else:
         abort(404)
 

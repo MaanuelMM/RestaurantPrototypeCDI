@@ -21,22 +21,21 @@
         class="mt-auto mb-4 btn btn-{% if customer %}success{% else %}warning{% endif %} btn-block">Actualizar</a>
 </div>
 
-{% for order_id, order in orders.items() %}
-{% if order.table_id == num and order.bill_requested and not order.paid %}
+{% if is_valid and orders[latest_order_id]["bill_requested"] %}
 <div class="container-fluid">
     <div class="alert alert-{% if customer %}success{% else %}warning{% endif %}">
         <div class="row">
             <div class="col{% if not customer %}-xl-9{% endif %}" style="margin-bottom:8px;margin-top:8px;">
-                <strong>¡Cuenta pedida!</strong> Se ha solicitado la cuenta para el pedido #{{ order_id }}, cuyo pago se
-                realizará con <strong>{% if order.pay_by_card %}TARJETA{% else %}EFECTIVO{% endif %}</strong>.
-                {% if order.invoice %}Además,
-                se ha solicitado <strong>FACTURA</strong>.{% endif %}
+                <strong>¡Cuenta pedida!</strong> Se ha solicitado la cuenta para el pedido #{{ latest_order_id }}, cuyo
+                pago se realizará con
+                <strong>{% if orders[latest_order_id]["pay_by_card"] %}TARJETA{% else %}EFECTIVO{% endif %}</strong>.{% if orders[latest_order_id]["invoice"] %}
+                Además, se ha solicitado <strong>FACTURA</strong>.{% endif %}
             </div>
             {% if not customer %}
             <div class="col-xl-3">
                 <form action="/waiter/tables/{{ num }}/info.html" method="POST" style="height: 100%;">
-                    <input type="hidden" name="order-id" value="{{ order_id }}">
-                    <input type="hidden" name="paid" value="True">
+                    <input type="hidden" name="order-id" value="{{ latest_order_id }}">
+                    <input type="hidden" name="paid">
                     <button type="submit" class="btn btn-warning btn-block" style="height: 100%;">Pagado</button>
                 </form>
             </div>
@@ -45,7 +44,6 @@
     </div>
 </div>
 {% endif %}
-{% endfor %}
 
 <div class="container-fluid">
     <div class="row">
@@ -54,10 +52,9 @@
             <div class="card" style="margin:8px">
                 <div class="d-flex flex-column card-body bg-light text-dark">
                     <h3 class="text-center" style="margin-bottom:16px;">{{ state.name }}</h3>
-                    {% for order_id, order in orders.items() %}
-                    {% if order.table_id == num and not order.paid %}
+                    {% if is_valid %}
                     {% for order_record_id, order_record in orders_record.items() %}
-                    {% if order_record.order_id == order_id and order_record.state == state_item %}
+                    {% if order_record.order_id == latest_order_id and order_record.state == state_item %}
                     <div class="card mb-3">
                         <div class="row no-gutters">
                             <div class="m-auto col-md-4">
@@ -68,7 +65,7 @@
                             <div class="m-auto col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ products[order_record.product_id]['name'] }}</h5>
-                                    <p class="card-text"><small class="text-muted">Pedido #{{ order_id }} | Orden
+                                    <p class="card-text"><small class="text-muted">Pedido #{{ latest_order_id }} | Orden
                                             #{{ order_record_id }}</small>
                                     </p>
                                 </div>
@@ -102,7 +99,6 @@
                     {% endif %}
                     {% endfor %}
                     {% endif %}
-                    {% endfor %}
                 </div>
             </div>
         </div>

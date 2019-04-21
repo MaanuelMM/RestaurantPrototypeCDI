@@ -53,18 +53,18 @@
                 {% endfor %}
             </div>
             <div class="row">
-                <div class="col-xl-3 text-center">
+                <div class="col-md-3 col-sm-6 text-center">
                     <h6>Cuenta pedida:
                         <b>{% if order.bill_requested %}SÍ{% else %}NO{% endif %}</b></h6>
                 </div>
-                <div class="col-xl-3 text-center">
-                    <h6>Pago con tarjeta:
+                <div class="col-md-3 col-sm-6 text-center">
+                    <h6>Con tarjeta:
                         <b>{% if order.pay_by_card %}SÍ{% else %}NO{% endif %}</b></h6>
                 </div>
-                <div class="col-xl-3 text-center">
+                <div class="col-md-3 col-sm-6 text-center">
                     <h6>Factura: <b>{% if order.invoice %}SÍ{% else %}NO{% endif %}</b></h6>
                 </div>
-                <div class="col-xl-3 text-center">
+                <div class="col-md-3 col-sm-6 text-center">
                     <h6>Pagado: <b>{% if order.paid %}SÍ{% else %}NO{% endif %}</b></h6>
                 </div>
             </div>
