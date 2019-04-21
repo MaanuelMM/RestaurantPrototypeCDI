@@ -271,7 +271,7 @@ def waiter_products():
         make_active_product_category(request.form["current-category"])
     else:
         make_active_product_category()
-    return render_template("/products/list.html", title="Carta",
+    return render_template("/products/list.html", title="Productos",
                            img_viewer=True, fixed_navbar=True,
                            categories=data.product_categories,
                            products=data.products,

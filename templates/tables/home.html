@@ -24,7 +24,7 @@
 <div class="container">
     <h2 class="text-center"><small>Seleccione la opción que más le interese hacer en este momento:</small></h2>
     <div class="row justify-content-center" style="margin-bottom:36px">
-        <div class="col-sm-6" style="margin-top:16px; margin-bottom:16px">
+        <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
             <button class="btn btn-info btn-lg btn-block" role="button">
                 <p></p>
                 <h3>Llamar camarero</h3>
@@ -33,14 +33,14 @@
         </div>
     </div>
     <div class="row justify-content-center" style="margin-bottom:24px">
-        <div class="col-sm-6" style="margin-top:16px; margin-bottom:16px">
+        <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
             <a href="/customer/tables/{{ num }}/edit.html" class="btn btn-success btn-lg btn-block" role="button">
                 <p></p>
                 <h3>Manipular mesa</h3>
                 <p></p>
             </a>
         </div>
-        <div class="col-sm-6" style="margin-top:16px; margin-bottom:16px">
+        <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
             <a href="/customer/tables/{{ num }}/info.html" class="btn btn-success btn-lg btn-block" role="button">
                 <p></p>
                 <h3>Estado pendientes</h3>
@@ -48,14 +48,14 @@
             </a>
         </div>
         {% if tables[num]["occupied"] %}
-        <div class="col-sm-6" style="margin-top:16px; margin-bottom:16px">
+        <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
             <a href="/customer/tables/{{ num }}/info.html" class="btn btn-success btn-lg btn-block" role="button">
                 <p></p>
                 <h3>Resumen pedido</h3>
                 <p></p>
             </a>
         </div>
-        <div class="col-sm-6" style="margin-top:16px; margin-bottom:16px">
+        <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
             <a href="/customer/tables/{{ num }}/products/list.html"
                 class="btn btn-success btn-lg btn-block{% if orders[latest_order_id]['bill_requested'] %} disabled{% endif %}"
                 role="button">
@@ -64,7 +64,7 @@
                 <p></p>
             </a>
         </div>
-        <div class="col-sm-6" style="margin-top:16px; margin-bottom:16px">
+        <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
             <a href="/customer/tables/{{ num }}/products/list.html"
                 class="btn btn-success btn-lg btn-block{% if orders[latest_order_id]['bill_requested'] %} disabled{% endif %}"
                 role="button">
@@ -74,7 +74,7 @@
             </a>
         </div>
         {% else %}
-        <div class="col-sm-6" style="margin-top:16px; margin-bottom:16px">
+        <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
             <a href="/customer/tables/{{ num }}/products/list.html" class="btn btn-success btn-lg btn-block"
                 role="button">
                 <p></p>
