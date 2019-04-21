@@ -578,7 +578,7 @@
     "73": {
         "name": "Menú Vegano",
         "description": "Menú sin una traza de carácter animal. Disfruta la sopa de coles de la casa y las maravillosas acelgas con patatas reogadas a la Tía Mildred",
-        "pathImage": "/static/products/mensu/vegano.png",
+        "pathImage": "/static/products/menus/vegano.jpg",
         "price": 15.75,
         "available": true,
         "category": "menus"
@@ -586,7 +586,7 @@
     "74": {
         "name": "Menú Vegetarino",
         "description": "Menú sin carnes ni pescados. Disfruta la ensalada tradicional con huevos cocidos y las fajitas de verduras",
-        "pathImage": "/static/products/menus/vegetariano.png",
+        "pathImage": "/static/products/menus/vegetariano.jpg",
         "price": 15.75,
         "available": true,
         "category": "menus"
