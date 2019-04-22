@@ -43,20 +43,21 @@
         <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
             <a href="/customer/tables/{{ num }}/info.html" class="btn btn-success btn-lg btn-block" role="button">
                 <p></p>
-                <h3>Estado pendientes</h3>
+                <h3>Estado mesa</h3>
                 <p></p>
             </a>
         </div>
         {% if tables[num]["occupied"] %}
         <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
-            <a href="/customer/tables/{{ num }}/info.html" class="btn btn-success btn-lg btn-block" role="button">
+            <a href="/customer/tables/{{ num }}/orders/{{ latest_order_id }}/summary.html"
+                class="btn btn-success btn-lg btn-block" role="button">
                 <p></p>
                 <h3>Resumen pedido</h3>
                 <p></p>
             </a>
         </div>
         <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
-            <a href="/customer/tables/{{ num }}/products/list.html"
+            <a href="/customer/tables/{{ num }}/orders/{{ latest_order_id }}/products/list.html"
                 class="btn btn-success btn-lg btn-block{% if orders[latest_order_id]['bill_requested'] %} disabled{% endif %}"
                 role="button">
                 <p></p>
@@ -75,12 +76,14 @@
         </div>
         {% else %}
         <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
-            <a href="/customer/tables/{{ num }}/products/list.html" class="btn btn-success btn-lg btn-block"
-                role="button">
-                <p></p>
-                <h3>Nuevo pedido</h3>
-                <p></p>
-            </a>
+            <form action="/customer/tables/{{ num }}/home.html" method="POST">
+                <input type="hidden" name="new-order">
+                <button type="submit" class="btn btn-success btn-lg btn-block">
+                    <p></p>
+                    <h3>Nuevo pedido</h3>
+                    <p></p>
+                </button>
+            </form>
         </div>
         {% endif %}
     </div>

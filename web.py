@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Authors:      Luis Carles Durá, Jaime García Velázquez, Manuel Martín Malagón, Rafael Rodríguez Sánchez
 # Created:      2019/04/10
-# Last update:  2019/04/21
+# Last update:  2019/04/22
 
 
 import os
@@ -20,12 +20,34 @@ except:
 app = Flask(__name__)
 
 
+def order_has_cart_record(order_id):
+    has_cart_record = False
+
+    for order_record in data.orders_record.values():
+        if order_record["order_id"] == order_id and order_record["state"] == "cart":
+            has_cart_record = True
+            break
+
+    return has_cart_record
+
+
+def order_has_record(order_id):
+    has_record = False
+
+    for order_record in data.orders_record.values():
+        if order_record["order_id"] == order_id:
+            has_record = True
+            break
+
+    return has_record
+
+
 def table_is_occupied(table_id):
     latest_order_id = order_get_latest(table_id)
     data.tables[table_id]["occupied"] = order_is_valid(latest_order_id)
 
 
-def tables_is_occupied():
+def tables_are_occupied():
     for table_id in data.tables:
         table_is_occupied(table_id)
 
@@ -71,7 +93,7 @@ def order_total_price(order_id, with_cart=False):
             elif with_cart and order_record["state"] == "cart":
                 total = total + order_record["product_price"]
 
-    return total
+    data.orders[order_id]["total"] = total
 
 
 def orders_total_price():
@@ -112,16 +134,28 @@ def new_order(table_id):
     return new_order_id
 
 
+def get_all_cart_order_records(order_id):
+    record_id_list = []
+
+    for order_record_id, order_record in data.orders_record.items():
+        if order_record["order_id"] == order_id and order_record["state"] == "cart":
+            record_id_list.append(order_record_id)
+
+    return record_id_list
+
+
 def confirm_cart_order_records(order_id):
-    for order_record_id, order_record in data.orders.items():
-        if order_record["order_id"] == order_id and data.orders[order_record_id]["state"] == "cart":
-            data.orders[order_record_id]["state"] = "pending"
+    record_id_list = get_all_cart_order_records(order_id)
+
+    for record_id in record_id_list:
+        data.orders_record[record_id]["state"] = "pending"
 
 
 def cancel_cart_order_records(order_id):
-    for order_record_id, order_record in data.orders.items():
-        if order_record["order_id"] == order_id and data.orders[order_record_id]["state"] == "cart":
-            del data.orders_record[order_record_id]
+    record_id_list = get_all_cart_order_records(order_id)
+
+    for record_id in record_id_list:
+        del data.orders_record[record_id]
 
 
 def new_order_record(order_id, product_id):
@@ -207,7 +241,7 @@ def waiter_home():
 @app.route("/waiter/tables/list.html")
 def waiter_tables():
     tables_count_notifications()
-    tables_is_occupied()
+    tables_are_occupied()
     return render_template("/tables/list.html", title="Mesas",
                            img_viewer=False, fixed_navbar=True,
                            tables=data.tables, customer=False)
@@ -293,11 +327,24 @@ def customer_home():
                                customer=True, tables=data.tables)
 
 
-@app.route("/customer/tables/<num>/home.html")
+@app.route("/customer/tables/<num>/home.html", methods=['GET', 'POST'])
 def customer_table(num):
     if num in data.tables:
         latest_order_id = order_get_latest(num)
         table_is_occupied(num)
+        if request.method == 'POST':
+            if data.tables[num]["occupied"]:
+                if "end-order" in request.form and "pay-by-card" in request.form and "invoice" in request.form:
+                    data.orders[latest_order_id]["bill_requested"] = True
+                    if request.form["pay-by-card"].lower() == "true":
+                        data.orders[latest_order_id]["pay_by_card"] = True
+                    if request.form["invoice"].lower() == "true":
+                        data.orders[latest_order_id]["invoice"] = True
+                    return redirect("/customer/tables/" + num + "/orders/" + latest_order_id + "/summary.html")
+            else:
+                if "new-order" in request.form:
+                    new_order_id = new_order(num)
+                    return redirect("/customer/tables/" + num + "/orders/" + new_order_id + "/products/list.html")
         return render_template("/tables/home.html", title="Mesa "+num,
                                img_viewer=False, fixed_navbar=False,
                                customer=True, tables=data.tables,
@@ -349,39 +396,77 @@ def customer_table_info(num):
         abort(404)
 
 
-@app.route("/customer/tables/<num>/products/list.html", methods=['GET', 'POST'])
-def customer_products_list(num):
-    if num in data.tables:
-        latest_order_id = order_get_latest(num)
-        if data.orders[latest_order_id]["paid"]:
-            latest_order_id = new_order(num)
-            data.tables[num]["occupied"] = True
-        order_total_price(latest_order_id, True)
-        make_active_product_category()
+@app.route("/customer/tables/<num_table>/orders/<num_order>/products/list.html", methods=['GET', 'POST'])
+def customer_products_list(num_table, num_order):
+    if(num_table in data.tables and num_order == order_get_latest(num_table) and
+            data.orders[num_order]["table_id"] == num_table and not data.orders[num_order]["bill_requested"]):
+        if request.method == 'POST':
+            if("current-category" in request.form and "product-id" in request.form and
+                    request.form["current-category"] in data.product_categories and
+                    request.form["product-id"] in data.products and
+                    data.products[request.form["product-id"]]["available"]):
+                new_order_record(num_order, request.form["product-id"])
+                make_active_product_category(request.form["current-category"])
+            elif "cancel" in request.form:
+                cancel_cart_order_records(num_order)
+                if not order_has_record(num_order):
+                    del data.orders[num_order]
+                return redirect("/customer/tables/" + num_table + "/home.html")
+        else:
+            make_active_product_category()
+        order_total_price(num_order, True)
         return render_template("/products/list.html", title="Carta",
                                img_viewer=True, fixed_navbar=True,
-                               num=num, orders=data.orders,
+                               num_table=num_table, num_order=num_order,
                                categories=data.product_categories,
-                               products=data.products,
-                               customer=True)
+                               orders=data.orders, customer=True,
+                               products=data.products)
     else:
         abort(404)
 
 
-@app.route("/customer/tables/<num>/products/cart.html", methods=['GET', 'POST'])
-def customer_products_cart(num):
-    if num in data.tables:
-        latest_order_id = order_get_latest(num)
-        if data.orders[latest_order_id]["paid"]:
-            latest_order_id = new_order(num)
-            data.tables[num]["occupied"] = True
-        order_total_price(latest_order_id, True)
+@app.route("/customer/tables/<num_table>/orders/<num_order>/products/cart.html", methods=['GET', 'POST'])
+def customer_products_cart(num_table, num_order):
+    if(num_table in data.tables and num_order == order_get_latest(num_table) and
+            data.orders[num_order]["table_id"] == num_table and not data.orders[num_order]["bill_requested"]):
+        has_cart_record = order_has_cart_record(num_order)
+        if request.method == 'POST':
+            if("order-record-id" in request.form and request.form["order-record-id"] in data.orders_record
+                    and data.orders_record[request.form["order-record-id"]]["order_id"] == num_order):
+                del data.orders_record[request.form["order-record-id"]]
+            elif "confirm" in request.form and has_cart_record:
+                confirm_cart_order_records(num_order)
+                return redirect("/customer/tables/" + num_table + "/home.html")
+            elif "cancel" in request.form:
+                cancel_cart_order_records(num_order)
+                if not order_has_record(num_order):
+                    del data.orders[num_order]
+                return redirect("/customer/tables/" + num_table + "/home.html")
+        order_total_price(num_order, True)
         return render_template("/products/cart.html", title="Carrito",
                                img_viewer=True, fixed_navbar=True,
-                               num=num, orders=data.orders,
+                               num_table=num_table, num_order=num_order,
                                categories=data.product_categories,
-                               products=data.products,
-                               customer=True)
+                               orders_record=collections.OrderedDict(
+                                   reversed(list(data.orders_record.items()))),
+                               orders=data.orders, customer=True,
+                               has_cart_record=has_cart_record,
+                               states=data.order_states,
+                               products=data.products)
+    else:
+        abort(404)
+
+
+@app.route("/customer/tables/<num_table>/orders/<num_order>/summary.html")
+def customer_order_summary(num_table, num_order):
+    if num_table in data.tables and num_order == order_get_latest(num_table) and data.orders[num_order]["table_id"] == num_table:
+        order_total_price(num_order)
+        return render_template("/orders/summary.html", title="Pedido "+num_order,
+                               img_viewer=True, fixed_navbar=True,
+                               num_table=num_table, num_order=num_order,
+                               categories=data.product_categories,
+                               orders=data.orders, customer=True,
+                               products=data.products)
     else:
         abort(404)
 

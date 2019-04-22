@@ -58,12 +58,11 @@
                             <h2 class="mt-auto mb-3 text-center"><b>
                                     {{ "%.2f" | format(product.price) }} €</span></b></h2>
                             {% if product.available %}
-                            <form action="/customer/{{ num }}/products/list.html" method="POST">
+                            <form action="/customer/tables/{{ num_table }}/orders/{{ num_order }}/products/list.html"
+                                method="POST">
                                 <input type="hidden" name="current-category" value="{{ product.category }}">
                                 <input type="hidden" name="product-id" value="{{ product_id }}">
-                                <input type="hidden" name="order-id" value="{{ order_id }}">
                                 <button type="submit" class="mt-auto btn btn-success btn-block">Añadir</button>
-                                <!-- que el boton añadir haga un new_order_record(num, product_id, product_price) -->
                             </form>
                             {% else %}
                             <a class="mt-auto btn btn-outline-success disabled" disabled>No disponible</a>
@@ -108,19 +107,19 @@
 {% if customer %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom" role="navigation" id="secondary-navbar">
     <div class="mx-auto row" style="width:100%;margin-bottom:16px;margin-top:16px;">
-        <div class="m-auto col-xl-2">
-            <a class="mt-auto btn btn-danger btn-lg btn-block my-2 my-sm-0" href="#">Cancelar
-            </a>
-        </div>
-        <div class="m-auto col-xl-8">
-            <h2 class="text-center" style="margin-bottom:16px;margin-top:8px;">Total:
-                {{ '%.2f' | format(orders[order_id]['total']) }} euros</h2>
-        </div>
-        <div class="m-auto col-xl-2">
+        <div class="m-auto col-md-3 col-lg-2">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary btn-lg btn-block my-2 my-sm-0" data-toggle="modal"
-                data-target="#exampleModalCenter">Ver carrito
+            <button class="mt-auto btn btn-danger btn-lg btn-block my-2 my-sm-0" data-toggle="modal"
+                data-target="#exampleModalCenter">Cancelar
             </button>
+        </div>
+        <div class="m-auto col-md-6 col-lg-8">
+            <h2 class="text-center" style="margin-bottom:16px;margin-top:8px;">Total:
+                {{ '%.2f' | format(orders[num_order]['total']) }} euros</h2>
+        </div>
+        <div class="m-auto col-md-3 col-lg-2">
+            <a href="/customer/tables/{{ num_table }}/orders/{{ num_order }}/products/cart.html"
+                class="mt-auto btn btn-primary btn-lg btn-block my-2 my-sm-0">Ver carrito</a>
         </div>
     </div>
 </nav>
@@ -129,20 +128,29 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Cancelar pedido actual</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <p>¿Está usted seguro de que desea cancelar el pedido actual? Al hacerlo, perderá <b>TODO</b> lo que
+                    haya guardado en el carrito.
+                </p>
+                <p>
+                    <b>NOTA</b>: si está editando un pedido ya existente, no se perderán los productos anteriormente
+                    añadidos, estando afectados únicamente los pedidos de esta sesión.
+                </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button class="btn btn-secondary" data-dismiss="modal">Continuar pedido</button>
+                <form action="/customer/tables/{{ num_table }}/orders/{{ num_order }}/products/list.html" method="POST">
+                    <input type="hidden" name="cancel">
+                    <button type="submit" class="btn btn-danger">Cancelar pedido</button>
+                </form>
             </div>
         </div>
     </div>
