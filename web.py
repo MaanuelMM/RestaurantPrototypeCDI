@@ -446,7 +446,6 @@ def customer_products_cart(num_table, num_order):
         return render_template("/products/cart.html", title="Carrito",
                                img_viewer=True, fixed_navbar=True,
                                num_table=num_table, num_order=num_order,
-                               categories=data.product_categories,
                                orders_record=collections.OrderedDict(
                                    reversed(list(data.orders_record.items()))),
                                orders=data.orders, customer=True,
