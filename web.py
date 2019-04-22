@@ -123,6 +123,7 @@ def table_reset_parameters(table_id):
     data.tables[table_id]["second_heath_section"] = False
     data.tables[table_id]["third_heath_section"] = False
     data.tables[table_id]["fourth_heath_section"] = False
+    data.tables[table_id]["waiter_call"] = False
 
 
 def new_order(table_id):
@@ -201,6 +202,8 @@ def tables_count_notifications():
     for table_id, table in data.tables.items():
         count = 0
         order_id = order_get_latest(table_id)
+        if table["waiter_call"] or table["waiter_call"] == "":
+            count = count + 1
         if order_is_valid(order_id):
             if data.orders[order_id]["bill_requested"]:
                 count = count + 1
@@ -273,6 +276,8 @@ def waiter_table(num):
                 data.orders[request.form["order-id"]]["paid"] = True
                 table_reset_parameters(
                     data.orders[request.form["order-id"]]["table_id"])
+            elif "waiter-completed" in request.form:
+                data.tables[num]["waiter_call"] = False
         latest_order_id = order_get_latest(num)
         table_is_occupied(num)
         return render_template("/tables/info.html", title="Mesa "+num,
@@ -345,7 +350,10 @@ def customer_table(num):
         latest_order_id = order_get_latest(num)
         table_is_occupied(num)
         if request.method == 'POST':
-            if data.tables[num]["occupied"]:
+            if "waiter-call" in request.form:
+                data.tables[num]["waiter_call"] = request.form["waiter-call"]
+                return redirect("/customer/tables/" + num + "/info.html")
+            elif data.tables[num]["occupied"]:
                 if("end-order" in request.form and "pay-by-card" in request.form and
                         "invoice" in request.form and not data.orders[latest_order_id]["bill_requested"]
                         and not order_has_pending_record(latest_order_id)):

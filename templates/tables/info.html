@@ -21,6 +21,28 @@
         class="mt-auto mb-4 btn btn-{% if customer %}success{% else %}warning{% endif %} btn-block">Actualizar</a>
 </div>
 
+{% if tables[num]['waiter_call'] or tables[num]['waiter_call'] == '' %}
+<div class="container-fluid">
+    <div class="alert alert-info">
+        <div class="row">
+            <div class="col{% if not customer %}-xl-9{% endif %}" style="margin-bottom:8px;margin-top:8px;">
+                <strong>¡Solicitud camarero!</strong> Se ha solicitado atención del camarero por parte del cliente.
+                {% if tables[num]['waiter_call'] %}El cliente ha indicado el siguiente mensaje:
+                <strong>{{ tables[num]['waiter_call'] }}</strong>{% endif %}
+            </div>
+            {% if not customer %}
+            <div class="col-xl-3">
+                <form action="/waiter/tables/{{ num }}/info.html" method="POST" style="height: 100%;">
+                    <input type="hidden" name="waiter-completed">
+                    <button type="submit" class="btn btn-info btn-block" style="height: 100%;">Completado</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% if tables[num]["occupied"] and orders[latest_order_id]["bill_requested"] %}
 <div class="container-fluid">
     <div class="alert alert-{% if customer %}success{% else %}warning{% endif %}">

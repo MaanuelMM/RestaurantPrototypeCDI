@@ -25,7 +25,8 @@
     <h2 class="text-center"><small>Seleccione la opción que más le interese hacer en este momento:</small></h2>
     <div class="row justify-content-center" style="margin-bottom:36px">
         <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
-            <button class="btn btn-info btn-lg btn-block" role="button">
+            <button class="btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#callWaiterModal"
+                {% if tables[num]['waiter_call'] or tables[num]['waiter_call'] == '' %} disabled{% endif %}>
                 <p></p>
                 <h3>Llamar camarero</h3>
                 <p></p>
@@ -88,6 +89,45 @@
     </div>
 </div>
 
+<div class="modal fade" id="callWaiterModal" tabindex="-1" role="dialog" aria-labelledby="callWaiterModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <form action="/customer/tables/{{ num }}/home.html" method="POST">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="callWaiterModalTitle">Llamar camarero</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <h3>&times;</h3>
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>
+                        ¿Está usted seguro de que desea llamar al camarero? Al hacerlo, no podrá volver a hacer
+                        <b>NINGUNA</b> solicitud más hasta que se complete la misma.
+                    </h5>
+                    <p></p>
+                    <h5>
+                        <b>NOTA</b>: será redirigido a la sección <kbd>Estado mesa</kbd>, donde podrá ver el progreso
+                        de la solicitud.
+                    </h5>
+                    <p></p>
+                    <h5>
+                        <textarea class="form-control form-control-lg" type="text"
+                            placeholder="Escriba aquí el motivo de la llamada (opcional)" name="waiter-call"></textarea>
+                    </h5>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary btn-lg" data-dismiss="modal">Cerrar</button>
+                    <input type="hidden" name="waiter-call">
+                    <button type="submit" class="btn btn-info btn-lg">Realizar llamada</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% if tables[num]["occupied"] %}
 <div class="modal fade" id="finishModal" tabindex="-1" role="dialog" aria-labelledby="finishModalTitle"
     aria-hidden="true">
@@ -103,13 +143,16 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5>¿Está usted seguro de que desea finalizar el pedido actual? Al hacerlo, no podrá pedir
+                    <h5>
+                        ¿Está usted seguro de que desea finalizar el pedido actual? Al hacerlo, no podrá pedir
                         <b>NINGÚN</b> producto más del restaurante. Además, una vez quede abonado el importe, la mesa
-                        quedará marcada como <span class="badge badge-pill badge-success">LIBRE</span>.</p>
+                        quedará marcada como <span class="badge badge-pill badge-success">LIBRE</span>.
+                    </h5>
+                    <p></p>
+                    <h5>
                         <b>NOTA</b>: será redirigido a la sección <kbd>Resumen pedido</kbd>, donde podrá ver el resumen
                         del mismo, así como la liquidación de la cuenta. También podrá consultarlo en la sección
-                        <kbd>Estado
-                            mesa</kbd>.
+                        <kbd>Estado mesa</kbd>.
                     </h5>
                     <p></p>
                     <h5>Seleccione el <mark><b>MÉTODO DE PAGO</b></mark>:</h5>

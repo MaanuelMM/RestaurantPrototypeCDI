@@ -5,7 +5,8 @@
         "first_heath_section": false,
         "second_heath_section": false,
         "third_heath_section": false,
-        "fourth_heath_section": false
+        "fourth_heath_section": false,
+        "waiter_call": false
     },
     "2": {
         "occupied": false,
@@ -13,7 +14,8 @@
         "first_heath_section": false,
         "second_heath_section": false,
         "third_heath_section": false,
-        "fourth_heath_section": false
+        "fourth_heath_section": false,
+        "waiter_call": false
     },
     "3": {
         "occupied": false,
@@ -21,7 +23,8 @@
         "first_heath_section": false,
         "second_heath_section": false,
         "third_heath_section": false,
-        "fourth_heath_section": false
+        "fourth_heath_section": false,
+        "waiter_call": false
     },
     "4": {
         "occupied": false,
@@ -29,7 +32,8 @@
         "first_heath_section": false,
         "second_heath_section": false,
         "third_heath_section": false,
-        "fourth_heath_section": false
+        "fourth_heath_section": false,
+        "waiter_call": false
     },
     "5": {
         "occupied": true,
@@ -37,7 +41,8 @@
         "first_heath_section": false,
         "second_heath_section": false,
         "third_heath_section": false,
-        "fourth_heath_section": false
+        "fourth_heath_section": false,
+        "waiter_call": false
     },
     "6": {
         "occupied": false,
@@ -45,6 +50,7 @@
         "first_heath_section": false,
         "second_heath_section": false,
         "third_heath_section": false,
-        "fourth_heath_section": false
+        "fourth_heath_section": false,
+        "waiter_call": false
     }
 }
