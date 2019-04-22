@@ -11,6 +11,8 @@ import collections
 
 from flask import Flask, flash, redirect, render_template, request, session, abort, send_from_directory
 from loaders.data_loader import DataLoader
+from flask_sslify import SSLify
+
 
 try:
     data = DataLoader()
@@ -18,6 +20,9 @@ except:
     exit()
 
 app = Flask(__name__)
+
+if 'DYNO' in os.environ:  # only trigger SSLify if the app is running on Heroku
+    sslify = SSLify(app)
 
 
 def order_has_pending_record(order_id):
@@ -221,14 +226,6 @@ def make_active_product_category(active_category="drinks"):
             data.product_categories[category]["active"] = True
         else:
             data.product_categories[category]["active"] = False
-
-
-@app.before_request
-def before_request():
-    if request.url.startswith('http://'):
-        url = request.url.replace('http://', 'https://', 1)
-        code = 301
-        return redirect(url, code=code)
 
 
 @app.route("/favicon.ico")
