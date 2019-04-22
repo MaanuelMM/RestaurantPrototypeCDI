@@ -107,25 +107,28 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="cancelModalTitle">Cancelar pedido actual</h5>
+                <h3 class="modal-title" id="cancelModalTitle">Cancelar pedido actual</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">
+                        <h3>&times;</h3>
+                    </span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>¿Está usted seguro de que desea cancelar el pedido actual? Al hacerlo, perderá <b>TODO</b> lo que
+                <h5>¿Está usted seguro de que desea cancelar el pedido actual? Al hacerlo, perderá <b>TODO</b> lo que
                     haya guardado en el carrito.
-                </p>
-                <p>
+                </h5>
+                <p></p>
+                <h5>
                     <b>NOTA</b>: si está editando un pedido ya existente, no se perderán los productos anteriormente
                     añadidos, estando afectados únicamente los pedidos de esta sesión.
-                </p>
+                </h5>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" data-dismiss="modal">Continuar pedido</button>
+                <button class="btn btn-secondary btn-lg" data-dismiss="modal">Continuar pedido</button>
                 <form action="/customer/tables/{{ num_table }}/orders/{{ num_order }}/products/cart.html" method="POST">
                     <input type="hidden" name="cancel">
-                    <button type="submit" class="btn btn-danger">Cancelar pedido</button>
+                    <button type="submit" class="btn btn-danger btn-lg">Cancelar pedido</button>
                 </form>
             </div>
         </div>
@@ -137,24 +140,27 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="confirmModalTitle">Confirmar pedido actual</h5>
+                <h3 class="modal-title" id="confirmModalTitle">Confirmar pedido actual</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">
+                        <h3>&times;</h3>
+                    </span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>¿Está usted seguro de que desea realizar el pedido actual? Al hacerlo, no podrá cancelar
+                <h5>¿Está usted seguro de que desea realizar el pedido actual? Al hacerlo, no podrá cancelar
                     <b>NINGUNO</b> de los productos guardados en el carrito.
-                </p>
-                <p>
+                </h5>
+                <p></p>
+                <h5>
                     <b>NOTA</b>: podrá ver el estado de su pedido en la sección <kbd>Estado mesa</kbd>.
-                </p>
+                </h5>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" data-dismiss="modal">Continuar pedido</button>
+                <button class="btn btn-secondary btn-lg" data-dismiss="modal">Continuar pedido</button>
                 <form action="/customer/tables/{{ num_table }}/orders/{{ num_order }}/products/cart.html" method="POST">
                     <input type="hidden" name="confirm">
-                    <button type="submit" class="btn btn-primary">Confirmar pedido</button>
+                    <button type="submit" class="btn btn-primary btn-lg">Confirmar pedido</button>
                 </form>
             </div>
         </div>

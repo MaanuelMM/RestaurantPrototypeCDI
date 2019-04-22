@@ -95,21 +95,26 @@
         <div class="modal-content">
             <form action="/customer/tables/{{ num }}/home.html" method="POST">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="finishModalTitle">Finalizar pedido actual</h5>
+                    <h3 class="modal-title" id="finishModalTitle">Finalizar pedido actual</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">
+                            <h3>&times;</h3>
+                        </span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Está usted seguro de que desea finalizar el pedido actual? Al hacerlo, no podrá pedir
+                    <h5>¿Está usted seguro de que desea finalizar el pedido actual? Al hacerlo, no podrá pedir
                         <b>NINGÚN</b> producto más del restaurante. Además, una vez quede abonado el importe, la mesa
                         quedará marcada como <span class="badge badge-pill badge-success">LIBRE</span>.</p>
-                    <b>NOTA</b>: será redirigido a la sección <kbd>Resumen pedido</kbd>, donde podrá ver el resumen
-                    del mismo, así como la liquidación de la cuenta. También podrá consultarlo en la sección <kbd>Estado
-                        mesa</kbd>.
-                    </p>
-                    <p>Seleccione el <mark><b>MÉTODO DE PAGO</b></mark>:</p>
-                    <p>
+                        <b>NOTA</b>: será redirigido a la sección <kbd>Resumen pedido</kbd>, donde podrá ver el resumen
+                        del mismo, así como la liquidación de la cuenta. También podrá consultarlo en la sección
+                        <kbd>Estado
+                            mesa</kbd>.
+                    </h5>
+                    <p></p>
+                    <h5>Seleccione el <mark><b>MÉTODO DE PAGO</b></mark>:</h5>
+                    <p></p>
+                    <h5>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="pay-by-card" id="pay-by-card-1"
                                 value="False" style="width: 18px; height: 18px;" checked>
@@ -124,9 +129,11 @@
                                 <h5>&#128179; Tarjeta</h5>
                             </label>
                         </div>
-                    </p>
-                    <p>Marque la siguiente opción si desea recibir <mark><b>FACTURA</b></mark> del pedido:</p>
-                    <p>
+                    </h5>
+                    <p></p>
+                    <h5>Marque la siguiente opción si desea recibir <mark><b>FACTURA</b></mark> del pedido:</h5>
+                    <p></p>
+                    <h5>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="invoice" value="True"
                                 id="invoiceCheck" style="width: 18px; height: 18px;">
@@ -134,14 +141,14 @@
                                 <h5>Sí, deseo recibir factura del pedido</h5>
                             </label>
                         </div>
-                    </p>
+                    </h5>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal">Continuar pedido</button>
+                    <button class="btn btn-secondary btn-lg" data-dismiss="modal">Continuar pedido</button>
                     <input type="hidden" name="end-order">
                     <input type="hidden" name="pay-by-card">
                     <input type="hidden" name="invoice">
-                    <button type="submit" class="btn btn-primary">Finalizar pedido</button>
+                    <button type="submit" class="btn btn-primary btn-lg">Finalizar pedido</button>
                 </div>
             </form>
         </div>
