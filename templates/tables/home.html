@@ -66,13 +66,12 @@
             </a>
         </div>
         <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
-            <a href="/customer/tables/{{ num }}/products/list.html"
-                class="btn btn-success btn-lg btn-block{% if orders[latest_order_id]['bill_requested'] %} disabled{% endif %}"
-                role="button">
+            <button class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#finishModal"
+                {% if orders[latest_order_id]['bill_requested'] or has_pending_record %} disabled{% endif %}>
                 <p></p>
                 <h3>Finalizar pedido</h3>
                 <p></p>
-            </a>
+            </button>
         </div>
         {% else %}
         <div class="col-lg-6" style="margin-top:16px; margin-bottom:16px">
@@ -88,4 +87,65 @@
         {% endif %}
     </div>
 </div>
+
+{% if tables[num]["occupied"] %}
+<div class="modal fade" id="finishModal" tabindex="-1" role="dialog" aria-labelledby="finishModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <form action="/customer/tables/{{ num }}/home.html" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="finishModalTitle">Finalizar pedido actual</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está usted seguro de que desea finalizar el pedido actual? Al hacerlo, no podrá pedir
+                        <b>NINGÚN</b> producto más del restaurante. Además, una vez quede abonado el importe, la mesa
+                        quedará marcada como <span class="badge badge-pill badge-success">LIBRE</span>.</p>
+                    <b>NOTA</b>: será redirigido a la sección <kbd>Resumen pedido</kbd>, donde podrá ver el resumen
+                    del mismo, así como la liquidación de la cuenta. También podrá consultarlo en la sección <kbd>Estado
+                        mesa</kbd>.
+                    </p>
+                    <p>Seleccione el <mark><b>MÉTODO DE PAGO</b></mark>:</p>
+                    <p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="pay-by-card" id="pay-by-card-1"
+                                value="False" style="width: 18px; height: 18px;" checked>
+                            <label class="ml-1 form-check-label" for="pay-by-card-1">
+                                <h5>&#128182; Efectivo</h5>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="pay-by-card" id="pay-by-card-2"
+                                value="True" style="width: 18px; height: 18px;">
+                            <label class="ml-1 form-check-label" for="pay-by-card-2">
+                                <h5>&#128179; Tarjeta</h5>
+                            </label>
+                        </div>
+                    </p>
+                    <p>Marque la siguiente opción si desea recibir <mark><b>FACTURA</b></mark> del pedido:</p>
+                    <p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="invoice" value="True"
+                                id="invoiceCheck" style="width: 18px; height: 18px;">
+                            <label class="ml-1 form-check-label" for="invoiceCheck">
+                                <h5>Sí, deseo recibir factura del pedido</h5>
+                            </label>
+                        </div>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal">Continuar pedido</button>
+                    <input type="hidden" name="end-order">
+                    <input type="hidden" name="pay-by-card">
+                    <input type="hidden" name="invoice">
+                    <button type="submit" class="btn btn-primary">Finalizar pedido</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

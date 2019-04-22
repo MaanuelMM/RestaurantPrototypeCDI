@@ -20,6 +20,18 @@ except:
 app = Flask(__name__)
 
 
+def order_has_pending_record(order_id):
+    has_pending_record = False
+
+    for order_record in data.orders_record.values():
+        if order_record["order_id"] == order_id and (
+                order_record["state"] == "pending" or order_record["state"] == "ear_kitchen"):
+            has_pending_record = True
+            break
+
+    return has_pending_record
+
+
 def order_has_cart_record(order_id):
     has_cart_record = False
 
@@ -334,7 +346,9 @@ def customer_table(num):
         table_is_occupied(num)
         if request.method == 'POST':
             if data.tables[num]["occupied"]:
-                if "end-order" in request.form and "pay-by-card" in request.form and "invoice" in request.form:
+                if("end-order" in request.form and "pay-by-card" in request.form and
+                        "invoice" in request.form and not data.orders[latest_order_id]["bill_requested"]
+                        and not order_has_pending_record(latest_order_id)):
                     data.orders[latest_order_id]["bill_requested"] = True
                     if request.form["pay-by-card"].lower() == "true":
                         data.orders[latest_order_id]["pay_by_card"] = True
@@ -348,6 +362,8 @@ def customer_table(num):
         return render_template("/tables/home.html", title="Mesa "+num,
                                img_viewer=False, fixed_navbar=False,
                                customer=True, tables=data.tables,
+                               has_pending_record=order_has_pending_record(
+                                   latest_order_id),
                                latest_order_id=latest_order_id,
                                orders=data.orders, num=num)
     else:
