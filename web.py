@@ -461,11 +461,12 @@ def customer_products_cart(num_table, num_order):
 def customer_order_summary(num_table, num_order):
     if num_table in data.tables and num_order == order_get_latest(num_table) and data.orders[num_order]["table_id"] == num_table:
         order_total_price(num_order)
-        return render_template("/orders/summary.html", title="Pedido "+num_order,
+        return render_template("/orders/summary.html", title="Resumen pedido",
                                img_viewer=True, fixed_navbar=True,
                                num_table=num_table, num_order=num_order,
-                               categories=data.product_categories,
                                orders=data.orders, customer=True,
+                               orders_record=data.orders_record,
+                               states=data.order_states,
                                products=data.products)
     else:
         abort(404)

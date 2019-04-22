@@ -32,7 +32,7 @@
                 {% for order_record_id, order_record in orders_record.items() %}
                 {% if order_record.order_id == order_id and order_record.state in states and order_record.state != "cancelled" %}
                 <div class="card mb-3" style="width:300px;margin:8px">
-                    <div class="m-auto row no-gutters">
+                    <div class="ml-3 row no-gutters">
                         <div class="m-auto col-md-3">
                             <img src="{{ products[order_record.product_id]['pathImage'] }}" class="card-img"
                                 alt="{{ products[order_record.product_id]['name'] }}" style="cursor:pointer"
