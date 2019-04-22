@@ -2,15 +2,18 @@
 # -*- coding: utf-8 -*-
 # Authors:      Luis Carles Durá, Jaime García Velázquez, Manuel Martín Malagón, Rafael Rodríguez Sánchez
 # Created:      2019/04/11
-# Last update:  2019/04/16
+# Last update:  2019/04/22
 
 
 import json
+import os
+
 
 class DataLoader:
 
     def __init__(self):
         try:
+            self.PORT = os.environ.get('PORT', '5000')
             with open('data/products.json', encoding='utf-8') as data:
                 self.products = json.load(data)
             with open('data/product_categories.json', encoding='utf-8') as data:
