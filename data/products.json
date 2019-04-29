@@ -7,22 +7,6 @@
         "available": true,
         "category": "starters"
     },
-    "2": {
-        "name": "PULLED CHEESE FRIES",
-        "description": "Carne de cerdo deshilachada con salsa barbacoa, patatas fritas gratinadas con queso cheddar ahumado, cebolla frita y salsa mayo smoked bacon.",
-        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/pulled-smoke-cheese-fries.png",
-        "price": 5.20,
-        "available": true,
-        "category": "starters"
-    },
-    "3": {
-        "name": "GUACAMOLE HECHO EN TU MESA",
-        "description": "El guacamole con los ingredientes más frescos hecho en tu mesa: aguacate, cebolla, jalapeño, cilantro, sal, lima y tabasco.",
-        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/guacamole-hecho-en-tu-mesa.png",
-        "price": 4.50,
-        "available": true,
-        "category": "starters"
-    },
     "4": {
         "name": "NACHOS SAN FERNANDO",
         "description": "Con quesos fundidos, chili con carne, crema agria, jalapeños y pico de gallo.",
@@ -44,14 +28,6 @@
         "description": "Fingers de queso, aros de cebolla, delicias de jalapeños y Chicken Pops (muslitos de alita de pollo), con salsa ranchera y barbacoa, para dipear.",
         "pathImage": "https://fostershollywood.es/sites/default/files/images/product/hollywood-combo.png",
         "price": 8.20,
-        "available": true,
-        "category": "starters"
-    },
-    "7": {
-        "name": "MAC & CHEESE",
-        "description": "Macarrones con crema de queso empanados con cereal de maíz sobre una salsa de tomate y albahaca, y queso Parmigiano Reggiano rallado.",
-        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/mac-cheese.png",
-        "price": 3.90,
         "available": true,
         "category": "starters"
     },
@@ -175,14 +151,6 @@
         "available": true,
         "category": "salads"
     },
-    "23": {
-        "name": "BEEF BONE",
-        "description": "Carne de vacuno cocinada lentamente y terminada a la parrilla con salsa BBQ, con cebolla crispy, tomate cherry y cilantro.",
-        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/beef-bone.png",
-        "price": 10.80,
-        "available": false,
-        "category": "meals"
-    },
     "24": {
         "name": "THE NEWYORKER 325 GRS",
         "description": "Jugoso entrecotte sazonado y preparado en nuestra parrilla. Servido con nuestra deliciosa salsa Steakhouse.",
@@ -215,27 +183,11 @@
         "available": false,
         "category": "meals"
     },
-    "28": {
-        "name": "SOUTHERN CHICKEN SANDWICH",
-        "description": "Contramuslos de pollo rebozados al estilo sureño con pan Pretzel, lechuga trocadero, tomate, queso Cheddar, bacon ahumado al haya, salsa de miel mostaza, pepinillo picado y mango.",
-        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/southern-chicken-sandwich-ok.png",
-        "price": 8.50,
-        "available": true,
-        "category": "sandwiches"
-    },
     "29": {
         "name": "CAESAR SANDWICH",
         "description": "Pechuga de pollo a la parrilla, bacon crujiente, lechuga romana y salsa parmesana en pan con semillas y copos de avena.",
         "pathImage": "https://fostershollywood.es/sites/default/files/images/product/caesar-sandwich-ok.png",
         "price": 7.90,
-        "available": true,
-        "category": "sandwiches"
-    },
-    "30": {
-        "name": "PULLED PORK SANDWICH",
-        "description": "Carne de cerdo deshilachada con salsa barbacoa, cheddar ahumado, lechuga romana aderezada con salsa yuzu y pepinillos con toques dulces y ácidos.",
-        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/pulled-pork-sandwich-new.png",
-        "price": 8.20,
         "available": true,
         "category": "sandwiches"
     },
@@ -351,14 +303,6 @@
         "available": true,
         "category": "burgers"
     },
-    "45": {
-        "name": "BANOFFEE CHEESECAKE",
-        "description": "Tarta de queso y plátano sobre una base de galleta, con dulce de leche y acompañado de plátano en rodajas.",
-        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/banoffee-cheesecake.png",
-        "price": 3.50,
-        "available": true,
-        "category": "desserts"
-    },
     "46": {
         "name": "ALL STAR BROWNIE",
         "description": "Brownie caliente de chocolate, acompañado de helado de vainilla, cubierto con nueces y nuestra salsa de chocolate caliente.",
@@ -404,14 +348,6 @@
         "description": "Delicioso bizcocho de chocolate relleno de crema de chocolate, cubierto con chocolate fondant y bañado con nuestra salsa de chocolate y trocitos de galleta Chips Ahoy®.",
         "pathImage": "https://fostershollywood.es/sites/default/files/images/product/devils-food-cake-sin-sello.png",
         "price": 4.50,
-        "available": true,
-        "category": "desserts"
-    },
-    "52": {
-        "name": "WAFFLY JERRY",
-        "description": "Tres minigofres con helado de vainilla Cookie Dough de Ben & Jerry's, con dulce de leche y pepitas de chocolate.",
-        "pathImage": "https://fostershollywood.es/sites/default/files/images/product/waffly_jerry_2_1000x495.png",
-        "price": 3.50,
         "available": true,
         "category": "desserts"
     },

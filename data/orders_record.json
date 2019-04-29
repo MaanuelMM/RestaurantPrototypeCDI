@@ -25,8 +25,8 @@
     },
     "5": {
         "order_id": "2",
-        "product_id": "2",
-        "product_price": 5.20,
+        "product_id": "6",
+        "product_price": 8.20,
         "state": "cancelled"
     },
     "6": {
@@ -91,7 +91,7 @@
     },
     "16": {
         "order_id": "4",
-        "product_id": "28",
+        "product_id": "29",
         "product_price": 8.50,
         "state": "pending"
     }
